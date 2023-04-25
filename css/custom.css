@@ -868,6 +868,11 @@ center#name-container {
 
 #welcome-info {
   background-color: #daf8f9;
+  background-color:rgba(57, 197, 187, 0.1);
   border-radius: 18px;
   padding: 8px 8px;
+}
+
+[data-theme=dark] #welcome-info {
+  background: #252525;
 }
