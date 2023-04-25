@@ -2660,7 +2660,7 @@ figure.highlight pre .javascript .function {
   width: 20px;
   clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 1069px) {
   .recent-posts .recent-post-item {
     width: 32.3%;
     margin: 0px 1% 20px 0px;
@@ -2678,7 +2678,7 @@ figure.highlight pre .javascript .function {
     -webkit-line-clamp: 2;
   }
 }
-@media screen and (min-width: 572px) and (max-width: 800px) {
+@media screen and (min-width: 572px) and (max-width: 1068px) {
   .recent-posts .recent-post-item {
     width: 47%;
     margin: 0px 3% 20px 0px;
