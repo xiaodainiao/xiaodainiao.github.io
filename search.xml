@@ -29,16 +29,18 @@
     
     
     <entry>
-      <title>第三篇文章</title>
-      <link href="/2023/04/24/2022-10-30%E7%AC%AC%E4%B8%89%E7%AF%87%E6%96%87%E7%AB%A0/"/>
-      <url>/2023/04/24/2022-10-30%E7%AC%AC%E4%B8%89%E7%AF%87%E6%96%87%E7%AB%A0/</url>
+      <title>docker概述</title>
+      <link href="/2023/04/25/post4/"/>
+      <url>/2023/04/25/post4/</url>
       
-        <content type="html"><![CDATA[<h2 id="这是我的第三篇文章"><a href="#这是我的第三篇文章" class="headerlink" title="这是我的第三篇文章"></a>这是我的第三篇文章</h2>]]></content>
+        <content type="html"><![CDATA[<blockquote><p>💛本文摘要💛<br>Docker系列文章：<br>一、<a href="https://blog.csdn.net/weixin_45043334/article/details/125243499">Docker概述</a><br>二、<a href="https://blog.csdn.net/weixin_45043334/article/details/125243542">Docker安装大全</a><br>三、<a href="https://blog.csdn.net/weixin_45043334/article/details/125243581">Docker 命令大全</a><br>四、<a href="https://blog.csdn.net/weixin_45043334/article/details/125262867">Docker容器部署</a><br>五、<a href="https://blog.csdn.net/weixin_45043334/article/details/125263703">Docker镜像详解</a><br>六、<a href="https://blog.csdn.net/weixin_45043334/article/details/125264727">Docker容器卷详解</a><br>七、 <a href="https://blog.csdn.net/weixin_45043334/article/details/125283158">Dockerfile详解</a><br>八、<a href="https://blog.csdn.net/weixin_45043334/article/details/125304543">Docker网路模式详解</a><br>笔记总结：<a href="https://www.bilibili.com/video/BV1og4y1q7M4?p=40&amp;vd_source=620a01017393bc61d7394b3dc716212d">https://www.bilibili.com/video/BV1og4y1q7M4</a><br>可面试可复习</p><h1 id="docker-概述"><a href="#docker-概述" class="headerlink" title="docker 概述"></a>docker 概述</h1><h2 id="🐳1-Docker-概述"><a href="#🐳1-Docker-概述" class="headerlink" title="🐳1. Docker 概述"></a>🐳1. Docker 概述</h2></blockquote><p>Docker 是一个基于go语言开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的<code>镜像</code>中，然后发布到任何流行的 <code>Linux</code>或<code>Window</code>操作系统的机器上，也可以实现<code>虚拟化</code>。容器是完全使用<code>沙箱</code>机制，相互之间不会有任何接口。</p><p><strong>一个完整的Docker有以下几个部分组成：</strong></p><ul><li><p>DockerClient客户端</p></li><li><p>Docker Daemon守护进程</p></li><li><p>Docker Image镜像</p></li><li><p>DockerContainer容器 </p></li></ul><h2 id="🐳2-Docker的出现"><a href="#🐳2-Docker的出现" class="headerlink" title="🐳2. Docker的出现"></a>🐳2. Docker的出现</h2><p>一款产品：开发—&gt;上线 俩套环境，应用配置！</p><p><strong>开发与运维的爱恨纠缠</strong>：我开发好的程序，放到别人的电脑上，就是运行不了（各种问题，要么缺少配置，要么缺少依赖，要么缺少库），可能还会遇到，版本更新，导致服务不可用！对于运维人来说，巨大考验。</p><p><strong>环境配置是一件非常头疼的事</strong>：</p><ul><li><p>每一个集群都要部署环境（redis、ES、Hadoop）</p></li><li><p>发布一个项目(jar+(Redis + MySQL + jdk + ES)),项目不能带上环境打包。</p></li><li><p>在服务器配置的一个应用环境Redis、MySQL、jdk、ES、Hadoop,配置麻烦，不能跨平台。</p></li></ul><p><img src="https://img-blog.csdnimg.cn/dda6ca47b4d242dc865746269a0379ea.png" alt="在这里插入图片描述"></p><h3 id="🐙Docker作用"><a href="#🐙Docker作用" class="headerlink" title="🐙Docker作用"></a>🐙Docker作用</h3><p>Docker为了解决上述问题</p><p>java — apk —发布（应用商店）— 小呆鸟使用apk — 安装即可</p><p>java —jar(环境) —- 打包项目带上环境（镜像）—- （Docker仓库：商店）— 下载我们发布的镜像 — 直接运行即可。</p><p><img src="https://img-blog.csdnimg.cn/aaafb15a9de64a49b7ad2028821e095f.png" alt="在这里插入图片描述"></p><p><img src="https://img-blog.csdnimg.cn/8699fcd5329f4db4925dbbb024d698cc.png" alt="在这里插入图片描述"></p><h3 id="🐙Docker思想"><a href="#🐙Docker思想" class="headerlink" title="🐙Docker思想"></a>🐙Docker思想</h3><ul><li>它来自于集装箱！</li><li>隔离：Docker的核心思想！将每个软件及依赖打包装箱，每一个箱子都是互相隔离的。</li><li>在一条船上，有俩个箱子，一个是水果，一个是生化武器。docker就是使得这俩个箱子隔离，互不干扰。</li></ul><h3 id="🐙Docker-VS-虚拟机"><a href="#🐙Docker-VS-虚拟机" class="headerlink" title="🐙Docker VS 虚拟机"></a>🐙Docker VS 虚拟机</h3><ul><li>虚拟机：在windows 中装一个Vmware,通过这个软件可以虚拟出来一台或者多台电脑！笨重！</li><li>虚拟机属于虚拟化技术，Docker容器技术，也是一种虚拟化技术</li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vmware :linux centos原生镜像(虚拟出一台电脑) 隔离，需要开启多个虚拟机！    几个G   几分钟</span><br><span class="line">docker :隔离，镜像（最核心环境 4m + jdk + mysql）十分小巧，运行镜像就可以！ 几个M或者KB 秒级</span><br></pre></td></tr></table></figure><h2 id="🐳3-Docker能做什么"><a href="#🐳3-Docker能做什么" class="headerlink" title="🐳3. Docker能做什么"></a>🐳3. Docker能做什么</h2><h3 id="🐙虚拟机技术"><a href="#🐙虚拟机技术" class="headerlink" title="🐙虚拟机技术"></a>🐙虚拟机技术</h3><p><img src="https://img-blog.csdnimg.cn/56fa1259d672483ab7d6e40f7825d834.png" alt="在这里插入图片描述"></p><p><strong>虚拟机技术缺点：</strong></p><ol><li>资源占用十分多（一个虚拟机占用20G）</li><li>冗余步骤多</li><li>启动非常慢</li></ol><h3 id="🐙Docker容器化技术"><a href="#🐙Docker容器化技术" class="headerlink" title="🐙Docker容器化技术"></a>🐙Docker容器化技术</h3><p><code>容器化技术不是模拟一个完整的操作系统</code>：例如你打开了一个虚拟机，里面装有linux系统，打开后，里面会有一些自带的浏览器，一些插件，但是docker里面什么也没有。</p><p><img src="https://img-blog.csdnimg.cn/4c2b8d67a8974eda93c8fa563faf4c49.png" alt="在这里插入图片描述"></p><h3 id="🐙Docker-和虚拟机技术的不同"><a href="#🐙Docker-和虚拟机技术的不同" class="headerlink" title="🐙Docker 和虚拟机技术的不同"></a>🐙Docker 和虚拟机技术的不同</h3><ul><li>传统的虚拟机，虚拟机一个硬件，运行一个完整的操作系统，然后再这个系统上安装和运行软件。</li><li>容器内的应用直接运行在宿主主机，容器是没有自己的内核的，也没有虚拟我们的硬件，所以轻便</li><li>每个容器是相互隔离，每个容器内部都有一个属于自己的文件系统，互不影响。</li></ul><h3 id="🐙DevOps-开发、运维"><a href="#🐙DevOps-开发、运维" class="headerlink" title="🐙DevOps(开发、运维)"></a>🐙DevOps(开发、运维)</h3><p><strong>应用更快速的交付和部署</strong></p><ul><li><p>传统： 一堆帮助文档，安装程序</p></li><li><p>Docker: 打包镜像发布测试，一键运行</p></li></ul><p><strong>更便捷的升级和扩缩容</strong></p><ul><li><p>使用了Docker之后，我们的部署应用就和搭积木一样！项目打包为一个镜像，扩展 服务器A ! 服务器B</p></li><li><p>传统 ：我要升级APP（redia, mysql, tomcat），此时我要把mysql,redis等APP需要的软件，都要升级</p></li><li>Docker: 我只需要把这个镜像升级一下。(把（redia, mysql, tomcat）做成一个镜像)。</li></ul><p><strong>更简单的系统运维</strong></p><ul><li>在容器化之后，我们的开发，测试环境都是高度一致的</li></ul><p><strong>更高效的计算资源利用</strong></p><ul><li>Docker 是内核级别的虚拟化，可以在一个物理机上运行很多容器实例！ 服务器的性能可以极大提高</li></ul><h2 id="🐳4-Docker名词概念"><a href="#🐳4-Docker名词概念" class="headerlink" title="🐳4. Docker名词概念"></a>🐳4. Docker名词概念</h2><p><img src="https://img-blog.csdnimg.cn/b83c64a2df8847468430e6e78500d37c.png" alt="在这里插入图片描述"></p><h3 id="🐙镜像-image"><a href="#🐙镜像-image" class="headerlink" title="🐙镜像(image):"></a>🐙镜像(image):</h3><p>docker镜像就好比一个模板(class类)，可以通过这个模板来创建容器服务(根据class类，来创建对象)， tomcat镜像==&gt;  run ==&gt; tomcat01容器 （提供服务）。</p><h3 id="🐙容器：-container"><a href="#🐙容器：-container" class="headerlink" title="🐙容器：(container)"></a>🐙容器：(container)</h3><p>Docker利用容器技术，独立运行一个或者一组应用，通过镜像来创建</p><p>启动、停止、删除、基本命令！</p><h3 id="🐙仓库-repository"><a href="#🐙仓库-repository" class="headerlink" title="🐙仓库(repository):"></a>🐙仓库(repository):</h3><p>仓库就是存放镜像的地方！</p><p>仓库分为公有仓库和私有仓库！</p><p>Docker Hub(默认是国外的)</p><p>阿里云等都有容器服务器（配置镜像加速！）</p><p><strong>流程</strong>:用客户端来启动Docker里面的一个容器，这个容器要去服务器上下载。</p>]]></content>
       
       
       <categories>
           
           <category> 云原生 </category>
+          
+          <category> Docker </category>
           
       </categories>
       
@@ -46,6 +48,8 @@
         <tags>
             
             <tag> 云原生 </tag>
+            
+            <tag> Docker </tag>
             
         </tags>
       
@@ -104,7 +108,7 @@
     
     
     <entry>
-      <title>第六篇文章</title>
+      <title>c++字符串、向量和数组</title>
       <link href="/2022/04/24/post3/"/>
       <url>/2022/04/24/post3/</url>
       
