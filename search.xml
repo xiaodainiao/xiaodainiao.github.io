@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>MySQL行格式</title>
+      <link href="/2022/06/14/post16/"/>
+      <url>/2022/06/14/post16/</url>
+      
+        <content type="html"><![CDATA[<h2 id="1-MySQL数据存放文件"><a href="#1-MySQL数据存放文件" class="headerlink" title="1.MySQL数据存放文件"></a>1.MySQL数据存放文件</h2><ul><li>我们每创建一个 database（数据库） 都会在 /var/lib/mysql/ 目录里面创建一个以 database 为名的目录,创建一个<code>student</code>表<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@xiaodainiao ~]#ls /var/lib/mysql/my_test</span><br><span class="line">db.opt  </span><br><span class="line">student.frm  </span><br><span class="line">student.ibd</span><br></pre></td></tr></table></figure></li><li><code>db.opt</code>：用来存储当前数据库的默认字符集和字符校验规则。</li><li><code>student.frm</code>：student的<code>表结构</code>会保存在这个文件。在 MySQL 中建立一张表都会生成一个.frm 文件，该文件是用来保存每个表的元数据信息的，主要包含表结构定义。</li><li><code>student.ibd</code>：student 的<code>表数据</code>会保存在这个文件。(也叫表空间)</li><li>表空间由段（segment）、区（extent）、页（page）、行（row）组成<ul><li>InnoDB 的数据是按「页」为单位来读写的,默认每个页的大小为 16KB(最多能保证 16KB 的连续存储空间)</li><li>在表中数据量大的时候，为某个索引分配空间的时候就不再按照页为单位分配了，而是按照区（extent）为单位分配。每个区的大小为 1MB，对于 16KB 的页来说，连续的 64 个页会被划为一个区，这样就使得链表中相邻的页的物理位置也相邻，就能使用顺序 I/O 了。</li><li>表空间是由各个段（segment）组成的，段是由多个区（extent）组成的。段一般分为数据段、索引段和回滚段等。<h2 id="2-行格式"><a href="#2-行格式" class="headerlink" title="2.行格式"></a>2.行格式</h2></li></ul></li><li>MySQL默认是默认行格式为COMPACT格式<br><img src="https://img-blog.csdnimg.cn/d0b346439dcb484eaca5abd7ad0089b5.png" alt="在这里插入图片描述"></li><li>记录的额外信息包含 3 个部分：变长字段长度列表、NULL 值列表、记录头信息。</li><li>记录的真是数据包含：row_id、trx_id、roll_ptr、列1值、列2值、列3值。<h3 id="变长字段"><a href="#变长字段" class="headerlink" title="变长字段"></a>变长字段</h3></li><li>varchar(n) 和 char(n) 的区别是什么，相信大家都非常清楚，char 是定长的，varchar 是变长的，变长字段实际存储的数据的长度（大小）不固定的。<br><img src="https://img-blog.csdnimg.cn/601745eac14745d2a8a33a580763fca3.png" alt="在这里插入图片描述"></li><li>name 列的值为 a，真实数据占用的字节数是 1 字节，十六进制 0x01；</li><li>phone 列的值为 123，真实数据占用的字节数是 3 字节，十六进制 0x03；<br><img src="https://img-blog.csdnimg.cn/6d50d7ad70d74e3f809732c0d6469a24.png" alt="在这里插入图片描述"><br><code>注意：变长字段字节数列表不是必须的。当数据表没有变长字段的时候，比如全部都是 int 类型的字段，这时候表里的行格式就不会有「变长字段长度列表」了</code><h3 id="NULL值列表"><a href="#NULL值列表" class="headerlink" title="NULL值列表"></a>NULL值列表</h3></li><li>表中的某些列可能会存储 NULL 值，如果把这些 NULL 值都放到记录的真实数据中会比较浪费空间，所以 Compact 行格式把这些值为 NULL 的列存储到 NULL值列表中。</li><li>如果存在允许 NULL 值的列，则每个列对应一个二进制位（bit），二进制位按照列的顺序逆序排列。<ul><li>二进制位的值为1时，代表该列的值为NULL。</li><li>二进制位的值为0时，代表该列的值不为NULL。<br><img src="https://img-blog.csdnimg.cn/526b238ae39f43de913696fb3b4d3591.png" alt="在这里插入图片描述"></li></ul></li></ul><p><code>注意：</code></p><ul><li>NULL 值列表也不是必须的。当数据表的字段都定义成 NOT NULL 的时候，这时候表里的行格式就不会有 NULL 值列表了。(NULL 值列表至少占用 1 字节空间）</li><li>「NULL 值列表」的空间不是固定 1 字节的。当一条记录有 9 个字段值都是 NULL，那么就会创建 2 字节空间的「NULL 值列表」，以此类推。<h3 id="记录头信息（省略）"><a href="#记录头信息（省略）" class="headerlink" title="记录头信息（省略）"></a>记录头信息（省略）</h3></li></ul><h3 id="记录真实数据"><a href="#记录真实数据" class="headerlink" title="记录真实数据"></a>记录真实数据</h3><ul><li><p><code>row_id</code></p><ul><li>如果我们建表的时候指定了主键或者唯一约束列，那么就没有 row_id 隐藏字段了。如果既没有指定主键，又没有唯一约束，那么 InnoDB 就会为记录添加 row_id 隐藏字段。row_id不是必需的，占用 6 个字节。</li></ul></li><li><p><code>trx_id</code></p><ul><li>事务id，表示这个数据是由哪个事务生成的。 trx_id是必需的，占用 6 个字节。</li></ul></li><li><code>roll_pointer</code><ul><li>这条记录上一个版本的指针。roll_pointer 是必需的，占用 7 个字节。（MVCC机制） </li></ul></li></ul><h2 id="3-varchar-n-中-n-最大取值为多少？"><a href="#3-varchar-n-中-n-最大取值为多少？" class="headerlink" title="3.varchar(n) 中 n 最大取值为多少？"></a>3.varchar(n) 中 n 最大取值为多少？</h2><ul><li>一行记录最大只能存储<code>65535 字节</code>的数据。</li><li>varchar(n) 字段类型的 n 代表的是最多存储的字符数量，并不是字节大小</li><li><p><code>65535字节的数据 = 变长字段长度列表 + NULL 值列表 + 真实数据</code></p><ul><li>创建表的时候，字段是允许为 NULL 的，所以会用 1 字节来表示「NULL 值列表」。 </li><li>「变长字段长度列表」所占用的字节数 = 所有「变长字段长度」占用的字节数之和。<ul><li>如果变长字段允许存储的最大字节数小于等于 255 字节，就会用 1 字节表示「变长字段长度」否则用2个字节代替 </li></ul></li></ul></li><li><p><code>varchar(n) 中 n 最大值 = 65535 - 2 - 1 = 65532。</code></p></li></ul><h2 id="4-行溢出"><a href="#4-行溢出" class="headerlink" title="4.行溢出"></a>4.行溢出</h2><ul><li>发生行溢出，多的数据就会存到另外的<code>溢出页</code>中。</li><li>当发生行溢出时，在记录的真实数据处只会保存该列的一部分数据，而把剩余的数据放在「溢出页」中，然后真实数据处用 20 字节存储指向溢出页的地址，从而可以找到剩余数据所在的页。</li></ul><p><img src="https://img-blog.csdnimg.cn/f89cf706cc79448ab8b42e047b0f59f6.png" alt="在这里插入图片描述"></p><h2 id="5-字节面试"><a href="#5-字节面试" class="headerlink" title="5.字节面试"></a>5.字节面试</h2><ul><li><code>MySQL 的 NULL 值会占用空间吗？</code><ul><li>MySQL 的 Compact 行格式中会用「NULL值列表」来标记值为 NULL 的列，NULL 值并不会存储在行格式中的真实数据部分。</li><li>NULL值列表会占用 1 字节空间，当表中所有字段都定义成 NOT NULL，行格式中就不会有 NULL值列表，这样可节省 1 字节的空间。 </li></ul></li><li><code>MySQL 怎么知道 varchar(n) 实际占用数据的大小？</code><ul><li>MySQL 的 Compact 行格式中会用「变长字段长度列表」存储变长字段实际占用的数据大小。</li></ul></li><li><code>varchar(n) 中 n 最大取值为多少？</code><ul><li>一行记录最大能存储 65535 字节的数据，但是这个是包含「变长字段字节数列表所占用的字节数」和「NULL值列表所占用的字节数」。所以， 我们在算 varchar(n) 中 n 最大值时，需要减去这两个列表所占用的字节数。</li></ul></li><li><code>行溢出后，MySQL 是怎么处理的？</code><ul><li>如果一个数据页存不了一条记录，InnoDB 存储引擎会自动将溢出的数据存放到「溢出页」中。</li><li>Compact 行格式针对行溢出的处理是这样的：当发生行溢出时，在记录的真实数据处只会保存该列的一部分数据，而把剩余的数据放在「溢出页」中，然后真实数据处用 20 字节存储指向溢出页的地址，从而可以找到剩余数据所在的页。 </li></ul></li></ul><p>文章节选自<a href="https://www.xiaolincoding.com/">https://www.xiaolincoding.com/</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数据库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据库 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>MySQL事务</title>
+      <link href="/2022/06/05/post15/"/>
+      <url>/2022/06/05/post15/</url>
+      
+        <content type="html"><![CDATA[<h2 id="事务的四大特性"><a href="#事务的四大特性" class="headerlink" title="事务的四大特性"></a>事务的四大特性</h2><ul><li><code>原子性（atomicity）</code>：事务是最小的执行单位，不允许分割，事务执行时要么全部成功，要么失败回滚。</li><li><code>一致性（consistency）</code>：事务执行之前和事务执行结束，数据库完整性没有被破坏，也就是数据从一个正确的状态转换到另一个正确状态。</li><li><code>隔离型（isolation）</code>：数据库允许多个并发事务同时对数据进行读写，而隔离是一个事务执行，不影响其他事务的运行效果。</li><li><code>持久性（durability）</code>：一个事务一旦提交（结束），对数据库的修改就是永久的，即使系统故障也不会丢失。</li></ul><h2 id="并发事务带来的问题"><a href="#并发事务带来的问题" class="headerlink" title="并发事务带来的问题"></a>并发事务带来的问题</h2><p>对于服务器来说可能同时处理多个事务。事务有<code>隔离性</code>的特性，理论上在某个事务 <code>对某个数据进行访问</code> 时，其他事务应该进行<code>排队</code>，当该事务提交之后，其他事务才可以继续访问这个数据。但是这样对 <code>性能影响太大</code>，我们既想保持事务的隔离性，又想让服务器在处理访问同一数据的多个事务时 性能尽量高些 。</p><ul><li><p><code>脏读（ Dirty Read ）</code>：事务A和事务B交替执行，事务A<code>读取</code>了已经被事务B<code>修改</code>但是<code>还未提交的字段</code>，而此时事务B发生了<code>回滚</code>，那么事务A读到的就是<code>脏数据</code>。<br><img src="https://img-blog.csdnimg.cn/1563f8a30c514f819daf558da47406e2.png" alt="在这里插入图片描述"></p></li><li><p><code>幻读（ Phantom ）</code>:    事务A查询一个范围的结果集，另一个并发事务B往这个范围中<code>插入/删除了数据</code>，并提交，然后事务A再次查询相同的范围，两次读取得到的结果集不一样了，这就是幻读。</p></li></ul><p><img src="https://img-blog.csdnimg.cn/aaacd0bd91db4ce48684bea82981619e.png" alt="在这里插入图片描述"></p><ul><li><p><code>不可重复读（ Non-Repeatable Read ）</code>:事务 A 读取 了一个字段，然后 事务 B 更新 了该字段。 之后事务A 再次读取 同一个字段， 值就不同了<br><img src="https://img-blog.csdnimg.cn/c6df590c50534f269653a8680308f52a.png" alt="在这里插入图片描述"></p></li><li><p><code>丢弃修改</code>：俩个写事务A,B同时对A = 0进行+1操作，结果B覆盖了A，导致最终结果是1而不是2，事务被覆盖。<br><img src="https://img-blog.csdnimg.cn/94684da7473046c092b6e075cdf83854.png" alt="在这里插入图片描述"></p></li></ul><p><strong>幻读和不可重复读区别</strong></p><ul><li>不可重复读重点是修改，而幻读重点在于新增或删除。<blockquote><p>例如事务A读取工资为1000操作没完成，此时事务B修改1000为2000，此时A在读导致钱是1000.<br>幻读是事务A查询工资单中大于3000的一共有3人，而此时事务B又加了一条4000元进行，此时事务A读到的就是4人。</p><h2 id="事务的隔离级别"><a href="#事务的隔离级别" class="headerlink" title="事务的隔离级别"></a>事务的隔离级别</h2></blockquote></li><li><code>READ UNCOMMITTED</code>：读未提交，事务发生了修改，即使没有提交，所有事务都可以看到其他未提交事务的执行结果。<code>不能避免脏读、不可重复读、幻读。</code></li><li><code>READ COMMITTED</code> ：读已提交，一个事务从开始直到提交前，所做的任何修改时其他事务不可见的。这是大多数数据库系统的默认隔离级别（但不是MySQL默认的）。可以避免脏读，但<code>不可重复读、幻读问题</code>仍然存在。</li><li><code>REPEATABLE READ</code>：可重复读，事务A在读到一条数据之后，此时事务B对该数据进行了修改并提交，那么事务A再读该数据，读到的还是原来的内容。可以避免脏读、不可重复读，但幻读问题仍然存在。这是MySQL的默认隔离级别。</li><li><code>SERIALIZABLE</code> ：可串行化，确保事务可以从一个表中读取相同的行。在这个事务持续期间，禁止其他事务对该表执行插入、更新和删除操作。所有的并发问题都可以避免，但性能十分低下。能避免脏读、不可重复读和幻读。<br><img src="https://img-blog.csdnimg.cn/001182f4dc04493482474f631625a930.png" alt="在这里插入图片描述"></li></ul><h2 id="事务如何保持四大特性（简要）"><a href="#事务如何保持四大特性（简要）" class="headerlink" title="事务如何保持四大特性（简要）"></a>事务如何保持四大特性（简要）</h2><h3 id="数据库如何保持原子性"><a href="#数据库如何保持原子性" class="headerlink" title="数据库如何保持原子性"></a>数据库如何保持原子性</h3><p>主要是利用 Innodb 的<strong>undo log</strong>。 <strong>undo log</strong>名为回滚日志，是实现原子性的关键，当事务回滚时能够撤销所有已经成功执行的 SQL语句，他需要记录你要回滚的相应日志信息。 例如</p><ul><li>当你delete一条数据的时候，就需要记录这条数据的信息，回滚的时候，insert这条旧数据</li><li>当你update一条数据的时候，就需要记录之前的旧值，回滚的时候，根据旧值执行update操作</li><li>当年insert一条数据的时候，就需要这条记录的主键，回滚的时候，根据主键执行delete操作</li></ul><p><strong>undo log</strong>记录了这些回滚需要的信息，当事务执行失败或调用了rollback，导致事务需要回滚，便可以利用<strong>undo log</strong>中的信息将数据回滚到修改之前的样子。</p><h3 id="数据库如何保持一致性"><a href="#数据库如何保持一致性" class="headerlink" title="数据库如何保持一致性"></a>数据库如何保持一致性</h3><p>分为两个层面来说。</p><ul><li><strong>从数据库层面</strong>，数据库通过原子性、隔离性、持久性来保证一致性。也就是说ACID四大特性之中，C(一致性)是目的，A(原子性)、I(隔离性)、D(持久性)是手段，是为了保证一致性，数据库提供的手段。<strong>数据库必须要实现AID三大特性，才有可能实现一致性</strong>。例如，原子性无法保证，显然一致性也无法保证。</li><li><strong>从应用层面</strong>，通过代码判断数据库数据是否有效，然后决定回滚还是提交数据！<h3 id="数据库如何保持隔离性"><a href="#数据库如何保持隔离性" class="headerlink" title="数据库如何保持隔离性"></a>数据库如何保持隔离性</h3></li><li><p>采用加锁的机制</p><h3 id="数据库如何保持持久性"><a href="#数据库如何保持持久性" class="headerlink" title="数据库如何保持持久性"></a>数据库如何保持持久性</h3><p>主要是利用Innodb的<strong>redo log</strong>。重写日志， 正如之前说的，MySQL是先把磁盘上的数据加载到内存中，在内存中对数据进行修改，再写回到磁盘上。如果此时突然宕机，内存中的数据就会丢失。 怎么解决这个问题？ 简单啊，事务提交前直接把数据写入磁盘就行啊。 这么做有什么问题？</p></li><li><p>只修改一个页面里的一个字节，就要将整个页面刷入磁盘，太浪费资源了。毕竟一个页面16kb大小，你只改其中一点点东西，就要将16kb的内容刷入磁盘，听着也不合理。</p></li><li>毕竟一个事务里的SQL可能牵涉到多个数据页的修改，而这些数据页可能不是相邻的，也就是属于随机IO。显然操作随机IO，速度会比较慢。</li></ul><p>于是，决定采用<strong>redo log</strong>解决上面的问题。当做数据修改的时候，不仅在内存中操作，还会在<strong>redo log</strong>中记录这次操作。当事务提交的时候，会将<strong>redo log</strong>日志进行刷盘(<strong>redo log</strong>一部分在内存中，一部分在磁盘上)。当数据库宕机重启的时候，会将<strong>redo log</strong>中的内容恢复到数据库中，再根据<strong>undo log</strong>和<strong>binlog</strong>内容决定回滚数据还是提交数据。</p><p>文章借鉴：<a href="https://interviewguide.cn/notes/03-hunting_job/02-interview/03-02-net.html">https://interviewguide.cn/notes/03-hunting_job/02-interview/03-02-net.html</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数据库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据库 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>MySQL日志</title>
       <link href="/2022/05/25/post14/"/>
       <url>/2022/05/25/post14/</url>
