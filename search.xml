@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>MVCC-多版本并发控制技术</title>
+      <link href="/2022/05/15/post12/"/>
+      <url>/2022/05/15/post12/</url>
+      
+        <content type="html"><![CDATA[<h2 id="快照读与当前读"><a href="#快照读与当前读" class="headerlink" title="快照读与当前读"></a>快照读与当前读</h2><p><code>快照读（普通select语句）通过MVCC方式解决幻读</code></p><ul><li>MVCC在MySQL InnoDB中的实现主要是为了提高数据库并发性能，用更好的方式去处理 <code>读-写冲突</code> ，做到即使有读写冲突时，也能做到 <code>不加锁 ， 非阻塞并发读</code> ，而这个读指的就是 <code>快照读（属于乐观锁）</code> , 而非 当前读 。</li></ul><p><code>当前读（select...for update等语句）通过next-key lock(记录锁+间隙锁)</code></p><ul><li><code>当前读</code>实际上是一种加锁的操作，是悲观锁的实现。而MVCC本质是采用乐观锁思想的一种方式。</li><li>当前读读取的是记录的<code>最新版本</code>（最新数据，而不是历史版本的数据），读取时还要保证其他并发事务不能修改当前记录，会对读取的记录进行加锁</li></ul><h2 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h2><p><strong>MySQL通过MVCC解决幻读，MVCC多版本并发控制结束，多版本通过<code>undolog</code>实现，管理通过<code>ReadView</code>实现</strong></p><ul><li>事务有四个隔离级别，可能存在三种并发问题：</li></ul><p><img src="https://img-blog.csdnimg.cn/6d1bc7e23fc74916b6dcaa34aefb5bbe.png" alt="在这里插入图片描述"></p><ul><li>但是在MySQL中，默认的隔离级别是可重复读，可以解决<code>脏读和不可重复读</code>，如果从定义来看，它不能解决幻读，只能采取<code>可串行化</code></li><li>但是MVCC可以不采用锁机制，而是通过<code>乐观锁</code>方式解决幻读，所以MySQL在可重复读也解决了幻读问题。<br><img src="https://img-blog.csdnimg.cn/dc5308e102424de89c127b78ce212f12.png" alt="在这里插入图片描述"></li></ul><h2 id="这四种隔离级别具体是如何实现的呢？"><a href="#这四种隔离级别具体是如何实现的呢？" class="headerlink" title="这四种隔离级别具体是如何实现的呢？"></a>这四种隔离级别具体是如何实现的呢？</h2><ul><li>对于「读未提交」隔离级别的事务来说，因为可以读到未提交事务修改的数据，所以直接读取最新的数据就好了；</li><li>对于「串行化」隔离级别的事务来说，通过加读写锁的方式来避免并行访问；</li><li><code>对于「读提交」和「可重复读」隔离级别的事务来说，它们是通过 Read View 来实现的，它们的区别在于创建 Read View 的时机不同，大家可以把 Read View 理解成一个数据快照，就像相机拍照那样，定格某一时刻的风景。「读提交」隔离级别是在「每个语句执行前」都会重新生成一个 Read View，而「可重复读」隔离级别是「启动事务时」生成一个 Read View，然后整个事务期间都在用这个 Read View。</code></li></ul><blockquote><p>注意，执行「开始事务」命令，并不意味着启动了事务。在 MySQL 有两种开启事务的命令，分别是：</p><ul><li>第一种：<code>begin/start transaction</code> 命令；</li><li>第二种：<code>start transaction with consistent snapshot</code> 命令；</li></ul><p>这两种开启事务的命令，事务的启动时机是不同的：</p><ul><li>执行了 begin/start transaction 命令后，并不代表事务启动了。只有在执行这个命令后，执行了增删查改操作的 SQL 语句，才是事务真正启动的时机；</li><li>执行了 start transaction with consistent snapshot 命令，就会马上启动事务。</li></ul></blockquote><p><code>总结</code>:</p><ul><li>MVCC读的是<code>快照</code>，也就是<code>乐观锁</code>的实现方式，幻读不会出现，相当于解决了幻读，但是并不是编程串行化了，串行化读是通过加锁，一个一个的进行解决。</li></ul><h2 id="隐藏字段、Undo-log版本链"><a href="#隐藏字段、Undo-log版本链" class="headerlink" title="隐藏字段、Undo log版本链"></a>隐藏字段、Undo log版本链</h2><ul><li>针对每一条记录（行格式），有三个隐藏字段<ul><li><code>UUID</code>：如果没有主键也没有唯一性索引，默认提供一个UUID隐藏字段</li><li><code>trx_id</code>:记录最近一个更新事务的ID(当一个事务对某条聚簇索引记录进行改动时，就会把该事务的事务 id 记录在 trx_id 隐藏列里)</li><li><code>roll_pointer</code>:回滚指针，是通过和undo log日志，旧版本写入到undo日志中，旧版本通过链表指针相连接，roll_point指向最近的undo log记录<br><img src="https://img-blog.csdnimg.cn/47a060ce0f284ff0b450c979c0d4e70b.png" alt="在这里插入图片描述"><h2 id="ReadView"><a href="#ReadView" class="headerlink" title="ReadView"></a>ReadView</h2></li></ul></li><li>使用 <code>READ COMMITTED</code> 和 <code>REPEATABLE READ</code> 隔离级别的事务，都必须保证读到 <code>已经提交了的</code> 事务修改过的记录。假如另一个事务已经修改了记录但是尚未提交，是不能直接读取最新版本的记录的</li><li><code>核心问题就是需要判断一下版本链中的哪个版本是当前事务可见的，这是ReadView要解决的主要问题</code></li></ul><blockquote><ol><li><code>creator_trx_id</code>，创建这个 Read View 的事务 ID。</li><li><code>m_ids</code>，表示在生成ReadView时当前系统中「活跃且未提交」的 <code>事务id列表</code>。<code>(“活跃事务”指的就是，启动了但还没提交的事务。)</code></li><li><code>min_trx_id</code> ，创建 Read View 时，当前数据库中「活跃事务且未提交的」事务中最小事务的事务 id </li><li><code>max_trx_id</code> ，表示生成ReadView时系统中应该分配给下一个事务的 id 值。max_trx_id 是系统最大的事务id值，这里要注意是系统中的事务id，需要区别于正在活跃的事务ID。<br><img src="https://img-blog.csdnimg.cn/614dd079bb0b4c90a14d347b3eb5f72a.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/99d5dcbf590745e79358cdaf1caf4173.png" alt="在这里插入图片描述"></li></ol></blockquote><p><img src="https://img-blog.csdnimg.cn/84591f35ecdc40ce9375f45294feed0d.png" alt="在这里插入图片描述"></p><h2 id="MVCC整体操作流程-如何解决幻读-重点"><a href="#MVCC整体操作流程-如何解决幻读-重点" class="headerlink" title="MVCC整体操作流程/如何解决幻读(重点)"></a>MVCC整体操作流程/如何解决幻读(<code>重点</code>)</h2><ol><li>首先获取事务自己的版本号，也就是事务 ID；</li><li>获取 ReadView；(在第一个查询语句后，会创建一个Read View后续的查询语句利用这个 Read View)</li><li>查询得到的数据，然后与 ReadView 中的事务版本号进行比较；</li><li>如果不符合 ReadView 规则，就需要从 Undo Log 中获取历史快照；</li><li>最后返回符合规则的数据。</li></ol><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol><li>MVCC 在 <code>READ COMMITTD</code> 、 <code>REPEATABLE READ</code>这俩个隔离级别才有效，因为这俩个情况下考虑快照（读旧数据），而剩下的读为提交和串行化，读的都是最新数据</li><li>核心点在于 <code>ReadView</code> 的原理， <code>READ COMMITTD</code> 、 <code>REPEATABLE READ</code> 这两个隔离级别的一个很大不同<br>就是生成<code>ReadView</code>的时机不同：<ul><li><code>READ COMMITTD</code>在每一次进行普通<code>SELECT</code>操作前都会生成一个ReadView</li><li><code>REPEATABLE READ</code>只在第一次进行普通<code>SELECT</code>操作前生成一个<code>ReadView</code>，之后的查询操作都重复<br>使用这个<code>ReadView</code>就好了。</li></ul></li></ol><p><img src="https://img-blog.csdnimg.cn/6e2994154c2740bea20a1092e309dffd.png" alt="在这里插入图片描述"></p><h2 id="当前读是如何避免幻读的？"><a href="#当前读是如何避免幻读的？" class="headerlink" title="当前读是如何避免幻读的？"></a>当前读是如何避免幻读的？</h2><ul><li>MySQL 里除了普通查询是快照读，其他都是当前读，比如 update、insert、delete，这些语句执行前都会查询最新版本的数据，然后再做进一步的操作。</li><li>假设你要 update 一个记录，另一个事务已经 delete 这条记录并且提交事务了，这样不是会产生冲突吗，所以 update 的时候肯定要知道最新的数据。</li><li><code>使用间隙锁，对范围加锁使得插入或者删除或者更新无法操作</code></li></ul><p><img src="https://img-blog.csdnimg.cn/8f46c7b63a0a4b5e81e98b7856403f15.png" alt="在这里插入图片描述"></p><h2 id="幻读没有被完全解决？"><a href="#幻读没有被完全解决？" class="headerlink" title="幻读没有被完全解决？"></a>幻读没有被完全解决？</h2><p><code>场景一：</code></p><ul><li>在可重复读隔离级别下，事务 A 第一次执行普通的 select 语句时生成了一个 ReadView，之后事务 B 向表中新插入了一条 id = 5 的记录并提交。接着，事务 A 对 id = 5 这条记录进行了更新操作，在这个时刻，这条新记录的 trx_id 隐藏列的值就变成了事务 A 的事务 id，之后事务 A 再使用普通 select 语句去查询这条记录时就可以看到这条记录了，于是就发生了幻读。</li></ul><p><code>场景二：</code></p><ul><li>T1 时刻：事务 A 先执行「快照读语句」：select * from t_test where id &gt; 100 得到了 3 条记录。</li><li>T2 时刻：事务 B 往插入一个 id= 200 的记录并提交；</li><li>T3 时刻：事务 A 再执行「当前读语句」 select * from t_test where id &gt; 100 for update 就会得到 4 条记录，此时也发生了幻读现象。</li></ul><p>要避免这类特殊场景下发生幻读的现象的话，就是尽量在开启事务之后，马上执行 select … for update 这类当前读的语句，因为它会对记录加 next-key lock，从而避免其他事务插入一条新记录。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数据库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据库 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>MySQL 锁</title>
+      <link href="/2022/05/10/post11/"/>
+      <url>/2022/05/10/post11/</url>
+      
+        <content type="html"><![CDATA[<h1 id="1-锁的种类"><a href="#1-锁的种类" class="headerlink" title="1.锁的种类"></a>1.锁的种类</h1><ul><li>根据加锁的范围，可以分为<code>全局锁、表级锁和行锁</code>三类。<br><img src="https://img-blog.csdnimg.cn/8f0411f37f7f403da7ca7b91c3e87b29.png" alt="在这里插入图片描述"><h2 id="全局锁"><a href="#全局锁" class="headerlink" title="全局锁"></a>全局锁</h2></li><li><p>全局锁主要应用于做<code>全库逻辑备份</code>。这样在备份数据库期间，不会因为数据或表结构的更新，而出现备份文件的数据与预期的不一样。</p></li><li><p>缺点：</p><ul><li><p>整个数据库都是只读状态。 会造成业务停滞。</p></li><li><p>解决办法</p><ul><li>如果数据库的引擎支持的事务支持可重复读的隔离级别，那么在备份数据库之前先开启事务，会先创建 Read View，然后整个事务执行期间都在用这个 Read View，而且由于 MVCC 的支持，备份期间业务依然可以对数据进行更新操作。</li></ul></li></ul></li></ul><h1 id="2-表级锁"><a href="#2-表级锁" class="headerlink" title="2.表级锁"></a>2.表级锁</h1><h2 id="表锁"><a href="#表锁" class="headerlink" title="表锁"></a>表锁</h2><ul><li>针对数据库的表进行加锁。不会出现死锁，发生锁的冲突几率高，并发低。</li><li>MySQL表锁有俩个模式：<code>表共享读锁和表独占写锁</code></li><li><code>表级自增锁</code>，当为表的某一列添加AUTO_INCREAMENT属性后，插入数据可以不指定该字段，系统会自动为它赋值。此时获取自增值是需要AUTO_INC锁锁定的</li><li>MyISANM不适合做写为主表的引擎，因为它是表锁，当锁住后，其他的线程不能做任何操作，从而大量更新会使得查询很难得到锁，最终导致永久阻塞。</li><li><code>InnoDB 牛逼的地方在于实现了颗粒度更细的行级锁。</code></li></ul><h2 id="意向锁"><a href="#意向锁" class="headerlink" title="意向锁"></a>意向锁</h2><p>如果出现行锁的时候，想加表锁，那就只能进行全表遍历，看是否有加行锁。太浪费时间</p><ul><li><code>意向锁是则不需要进行遍历数据也可以直接判断是否可以给表加锁</code>。<ul><li><code>意向共享锁（IS锁）</code>：当事务给某行记录增加了S锁（共享锁）,同时给表加一个IS锁</li><li><code>意向独占锁（IX锁）</code>：当事务给某条记录增加X锁时（独占锁），同时给表加一个IX锁。</li></ul></li><li>意向锁是innodb自动加的，不用用户干预。</li></ul><blockquote><p>意向共享锁和意向独占锁是表级锁，不会和行级的共享锁和独占锁发生冲突，&gt;而且意向锁之间也不会发生冲突，只会和共享表锁（lock tables … read）和独占表锁（lock tables … write）发生冲突。</p></blockquote><h1 id="3-行级锁"><a href="#3-行级锁" class="headerlink" title="3.行级锁"></a>3.行级锁</h1><h2 id="行锁"><a href="#行锁" class="headerlink" title="行锁"></a>行锁</h2><ul><li>innodb既支持行锁，也支持表锁</li><li><code>行锁</code>开销大，会出现死锁，发生冲突几率小，并发高</li><li>MySQL的行锁是通过索引加载的，锁住的永远是索引，而非记录本身，即使没有索引innodb会在后台创建一个聚簇索引，行锁就会锁住聚簇索引，<code>但是如果一个SQL语句没有走任何索引，那么就会为它加上表锁，全表扫描。</code></li></ul><p><code>共享锁（读锁也叫S锁）/排他锁（写锁也叫X锁）</code></p><ul><li><code>共享锁（S锁）</code>：当一个事务给一条记录上共享锁后，其他的事务也可以对该事务上共享锁，但是该锁只是可以读，如果有事务想写，那么它就会阻塞，一直等待所有的锁释放。</li><li><code>排他锁（X锁）</code>：当一个事务给记录上锁后，可以进行读写，其他的事务不能够上任何锁。<h2 id="记录锁"><a href="#记录锁" class="headerlink" title="记录锁"></a>记录锁</h2></li><li><p>记录锁，锁住的是一条记录。而且记录锁是有 S 锁和 X 锁之分的：</p><h2 id="间隙锁"><a href="#间隙锁" class="headerlink" title="间隙锁"></a>间隙锁</h2><p>MySQL默认隔离级别是<code>可重复读</code>,而可重读读只能解决脏读，不可重复读。<code>解决不了幻读</code>,但是不同的一点是MySQL通过俩种机制来解决幻读：<code>一靠MVCC方案解决，二加锁方案解决</code>。然而事务加锁时，记录是不存在的，是无法加行锁，则需要靠间隙锁。<br><img src="https://img-blog.csdnimg.cn/649593a458d4436eac325cc6f38dd3eb.png" alt="在这里插入图片描述"></p></li><li><p>例如给 id=8 记录加 gap 锁，锁住（4,8）区间。另一事务想插入 id=6 的记录，会先定位到 id=8 的记录，然后发现存在一个 gap 锁，则阻塞直到 第一个事务将 gap 锁释放掉，才可以在（4,8）区间插入记录</p></li><li>gap lock 仅仅是为了防止插入幻影记录，并不会限制其他事务对记录继续加行锁 或者 gap 锁</li></ul><h2 id="临键锁"><a href="#临键锁" class="headerlink" title="临键锁"></a>临键锁</h2><ul><li>Next-Key Lock 称为临键锁，是 Record Lock + Gap Lock 的组合，锁定一个范围，并且锁定记录本身。<h2 id="插入意向锁"><a href="#插入意向锁" class="headerlink" title="插入意向锁"></a>插入意向锁</h2></li><li><p>一个事务在插入一条记录的时候，需要判断插入位置是否已被其他事务加了间隙锁（next-key lock 也包含间隙锁）。</p></li><li><p>如果有的话，插入操作就会发生阻塞，直到拥有间隙锁的那个事务提交为止（释放间隙锁的时刻），<code>在此期间会生成一个插入意向锁，表明有事务想在某个区间插入新记录，但是现在处于等待状态。</code></p></li><li><p>插入意向锁名字虽然有意向锁，但是它并不是意向锁，它是一种特殊的间隙锁，属于行级别锁。</p><h1 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h1><ul><li>每次拿<code>数据</code>都默认别人不会修改，所以不会上锁，在更新的时候会判断一下在此期间别人有没有去更新这个数据。 </li></ul></li><li><p><code>实现方式</code>：乐观锁一般会使用版本号机制或CAS<a href="">算法</a>实现。 </p></li><li><p><strong>MVCC (Multiversion Concurrency Control)，即多版本并发控制技术。</strong></p><ul><li><strong>MVCC在MySQL InnoDB中的实现主要是为了提高<a href="">数据</a>库并发性能，用更好的方式去处理读-写冲突，做到即使有读写冲突时，也能做到不加锁</strong></li></ul></li></ul><p><code>总结</code>：</p><ul><li><code>MVCC其本质就是看做是乐观锁的机制，而排他锁等则是悲观锁的实现。</code><h1 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h1></li><li>每次拿<a href="">数据</a>时都认为别人会修改，所以每次那<a href="">数据</a>时都会上锁，别人拿<a href="">数据</a>时会阻塞直到拿到锁。 </li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数据库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据库 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>goland结构体</title>
       <link href="/2022/05/06/post10/"/>
       <url>/2022/05/06/post10/</url>
@@ -21,31 +71,6 @@
         <tags>
             
             <tag> goland </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>MySQL 锁</title>
-      <link href="/2022/05/06/post11/"/>
-      <url>/2022/05/06/post11/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      <categories>
-          
-          <category> 数据库 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 数据库 </tag>
             
         </tags>
       
