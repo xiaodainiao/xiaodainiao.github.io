@@ -856,7 +856,9 @@ center#name-container {
     padding: 1rem;
     position: relative;
     border-radius: 12px;
-    background-image: url(https://tuchuang.voooe.cn/images/2023/01/02/tunian.webp);
+    /* background-image: url(https://tuchuang.voooe.cn/images/2023/01/02/tunian.webp); */
+	background-image: url(https://pic-bed-1oa.pages.dev/img/mi15.jpeg);
+
     background-size: cover;
     background-position: center;
 }
