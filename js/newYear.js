@@ -24,7 +24,7 @@ var newYear = () => {
         // 小于0则表示已经过年
         if (second < 0) {
             document.querySelector('#newYear .title').innerHTML = 'Happy New Year!';
-            document.querySelector('#newYear .newYear-time').innerHTML = '<span class="happyNewYear">新年快乐</span>';
+            document.querySelector('#newYear .newYear-time').innerHTML = '<span class="happyNewYear">新年快乐</p>';
         } else {
             // 大于0则还未过年
             document.querySelector('#newYear .title').innerHTML = '距离2023年春节：'
@@ -47,11 +47,11 @@ var newYear = () => {
     }
 
     // 元宝飘落
-    jQuery(document).ready(function($) {
+    jQuery(document).ready(function ($) {
         $('#newYear').wpSuperSnow({
-            flakes: ['https://cdn.leonus.cn/img/yb1.webp', 'https://cdn.leonus.cn/img/yb2.webp', 'https://cdn.leonus.cn/img/yb3.webp'],
+            flakes: ['https://tuchuang.voooe.cn/images/2023/01/02/yb1.webp', 'https://tuchuang.voooe.cn/images/2023/01/02/yb2.webp', 'https://tuchuang.voooe.cn/images/2023/01/02/yb3.webp'],
             totalFlakes: '100',
-            zIndex: '1',
+            zIndex: '999999',
             maxSize: '30',
             maxDuration: '20',
             useFlakeTrans: false
@@ -59,3 +59,7 @@ var newYear = () => {
     });
 }
 newYear();
+// // Pjax适配：若没有开启Pjax这里直接是newYear()即可
+// // 开了Pjax的用以下两句
+// document.addEventListener('pjax:complete', newYear);
+// document.addEventListener('DOMContentLoaded', newYear);
