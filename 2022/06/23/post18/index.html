@@ -1,0 +1,456 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>c ++ primer 表达式 | Littlebird🍉</title><meta name="author" content="Littlebird"><meta name="copyright" content="Littlebird"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="c ++专栏总结——表达式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="c ++ primer 表达式">
+<meta property="og:url" content="http://xiaodainiao.com.cn/2022/06/23/post18/index.html">
+<meta property="og:site_name" content="Littlebird🍉">
+<meta property="og:description" content="c ++专栏总结——表达式">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic-bed-1oa.pages.dev/img/mi3.jpeg">
+<meta property="article:published_time" content="2022-06-23T09:00:00.000Z">
+<meta property="article:modified_time" content="2023-10-05T14:17:37.101Z">
+<meta property="article:author" content="Littlebird">
+<meta property="article:tag" content="c++">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic-bed-1oa.pages.dev/img/mi3.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://xiaodainiao.com.cn/2022/06/23/post18/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-right"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'c ++ primer 表达式',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-10-05 22:17:37'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/cat.css"><link rel="stylesheet" href="/css/font.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_4034472_ta34bbnsr7.js" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/echarts@4.9.0/dist/echarts.min.js"></script><link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@1,300&display=swap" rel="stylesheet"><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/animate.min.css" media="print" onload="this.media='screen'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/touXiang.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-tubiaozhizuomoban-"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-tubiaozhizuomoban-"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon--biji"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian1">                   </use></svg><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/tags/"><i class="fa-fw icon-biaoqian1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian1"></use></svg><span> 标签</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/categories/"><i class="fa-fw icon-fenleixuanzhong"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenleixuanzhong"></use></svg><span> 分类</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-tubiaozhizuomoban"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-LINKS">                   </use></svg><span> 友人账</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-liuyan">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/archives/"><i class="fa-fw icon-lishishuju"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-lishishuju"></use></svg><span> 时光鸡</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-niunai"></use></svg><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/talk/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-xiaoxi">                   </use></svg><span> 唠叨</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/about/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-gerenziliao">                   </use></svg><span> 关于我</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pic-bed-1oa.pages.dev/img/mi3.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Littlebird🍉"><span class="site-name">Littlebird🍉</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-tubiaozhizuomoban-"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-tubiaozhizuomoban-"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon--biji"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian1">                   </use></svg><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/tags/"><i class="fa-fw icon-biaoqian1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian1"></use></svg><span> 标签</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/categories/"><i class="fa-fw icon-fenleixuanzhong"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenleixuanzhong"></use></svg><span> 分类</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-tubiaozhizuomoban"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-LINKS">                   </use></svg><span> 友人账</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-liuyan">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/archives/"><i class="fa-fw icon-lishishuju"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-lishishuju"></use></svg><span> 时光鸡</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-niunai"></use></svg><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/talk/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-xiaoxi">                   </use></svg><span> 唠叨</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/about/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-gerenziliao">                   </use></svg><span> 关于我</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">c ++ primer 表达式</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-06-23T09:00:00.000Z" title="发表于 2022-06-23 17:00:00">2022-06-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-10-05T14:17:37.101Z" title="更新于 2023-10-05 22:17:37">2023-10-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/c/">c++</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3348</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="c ++ primer 表达式"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="⛄️第4章-表达式"><a href="#⛄️第4章-表达式" class="headerlink" title="⛄️第4章 表达式"></a>⛄️第4章 表达式</h1><h2 id="☔️4-1-基础"><a href="#☔️4-1-基础" class="headerlink" title="☔️4.1 基础"></a>☔️4.1 基础</h2><h3 id="❄️4-1-1-基本概念"><a href="#❄️4-1-1-基本概念" class="headerlink" title="❄️4.1.1 基本概念"></a>❄️4.1.1 基本概念</h3><p><strong>运算对象转换</strong></p>
+<ul>
+<li><code>小整数类型（如bool、char、short等）通常会被提升成较大的整数类型，主要是 int 型</code></li>
+<li>一般在进行二元运算符时，即使俩个数类型不一样，只要他们可以相互准换为同一个类型就可以。</li>
+<li>运算符作用于类类型的运算对象时，用户可以自行定义其含义。这种做法称之为<code>重载运算符</code></li>
+</ul>
+<p><strong>左值和右值</strong></p>
+<ul>
+<li>c中左值可以位于赋值语句的左侧，而右值不行</li>
+<li>c ++ 表达式<code>要么是左值，要么是右值</code></li>
+<li>左值：当一个对象被用作左值时，用的是<code>对象的身份（在内存中的位置）</code></li>
+<li>右值：当一个对象被用作右值时，用的是<code>对象的值（内容）</code></li>
+</ul>
+<p>需要右值的地方可以被左值代替，但是不能把右值当成左值（也就是位置）使用。</p>
+<ul>
+<li>使用关键字 decltype 时，如果表达式的求值结果是左值，decltype 作用于该表达式（不是变量）得到一个引用类型。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">例如</span><br><span class="line"><span class="type">int</span> *p;</span><br><span class="line">decltype(*p)的结果是<span class="type">int</span>&amp;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>运算符对于作用对象是左值还是右值会有要求，比如赋值运算符的左侧运算对象必须是左值。</li>
+</ul>
+<h3 id="❄️4-1-2-优先级与结合律"><a href="#❄️4-1-2-优先级与结合律" class="headerlink" title="❄️4.1.2 优先级与结合律"></a>❄️4.1.2 优先级与结合律</h3><ul>
+<li>左结合律：如果运算符优先级相同，按照从左向右的顺序组合运算对象。</li>
+<li>大部分二元运算符满足左结合律，赋值运算符满足右结合律。<h3 id="❄️4-1-3-求值顺序"><a href="#❄️4-1-3-求值顺序" class="headerlink" title="❄️4.1.3 求值顺序"></a>❄️4.1.3 求值顺序</h3></li>
+<li>优先级规定了运算对象的组合方式，但是并没有规定运算对象按照什么顺序求值。<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i = f1() * f2();</span><br><span class="line">函数f1和函数f2一定会在乘法之前调用，但是到底是f1()在f2()之前调用还是，之后调用，不确定</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>对于没有指定执行顺序的运算符，如果表达式指向并修改了同一个对象，那么将会发生错误<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">&quot;&quot;</span>&lt;&lt; ++i &lt;&lt; end;<span class="comment">//错误！未定义的行为，不知道先求 i 还是先求 ++i</span></span><br></pre></td></tr></table></figure>
+<strong>处理复合语句</strong></li>
+</ul>
+<ol>
+<li>不确定优先级与结合律的情况下，强制用括号</li>
+<li><p><code>如果改变了某个运算对象的值，在同一表达式中不要再使用该运算对象。</code></p>
+<h2 id="☔️4-2-算术运算符"><a href="#☔️4-2-算术运算符" class="headerlink" title="☔️4.2 算术运算符"></a>☔️4.2 算术运算符</h2><p>算术运算符(左结合律),有三种</p>
+</li>
+<li><p>+、- ：一元正号与一元负号</p>
+</li>
+<li>*、/、% ：乘法、除法、求余</li>
+<li>+、- ：加法、减法</li>
+</ol>
+<ul>
+<li>上面的所有运算符，都满足左结合律，意味着优先级相同，按照从左向右的顺序进行组合。</li>
+<li><code>整数除法的结果是向0取整</code></li>
+<li>求余运算的运算对象必须是整数，运算结果始终与被除数符号相同<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">-21</span> % <span class="number">-8</span> = <span class="number">-5</span></span><br><span class="line"><span class="number">21</span> % <span class="number">-5</span> = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="☔️4-3-逻辑和关系运算符"><a href="#☔️4-3-逻辑和关系运算符" class="headerlink" title="☔️4.3 逻辑和关系运算符"></a>☔️4.3 逻辑和关系运算符</h2><ul>
+<li>逻辑运算符：！、&amp;&amp;、||</li>
+<li>关系运算符：&lt;, &lt;=, &gt;, &gt;=, !=, == </li>
+<li>逻辑运算符与关系运算符的求值结果都是<code>布尔值</code>。</li>
+<li><code>短路求值</code>：逻辑与运算符和逻辑或运算符都是先求左侧运算对象的值再求右侧运算对象的值，当且仅当左侧运算对象无法确定表达式的结果时才会计算右侧运算对象的值。<code>先左再右</code></li>
+<li>声明为引用类型可以避免对元素的拷贝，如下，如string特别大时可以节省大量时间。<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; text;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">const</span> <span class="keyword">auto</span> &amp;s: text)&#123;</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>注意：如果想要测试一个算术对象或者指针对象的真值，最直接的方法是将其作为 if 语句的条件，不要与布尔值进行比较。</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(a);<span class="comment">//正确   只要a 是 正数，则为真</span></span><br><span class="line"><span class="keyword">if</span>(a == <span class="literal">true</span>);<span class="comment">//错误：会将 true 先转换为 int 再比较，比较结果是不相等（只有a = 1时才为真）</span></span><br></pre></td></tr></table></figure>
+<h2 id="☔️4-4-赋值运算符"><a href="#☔️4-4-赋值运算符" class="headerlink" title="☔️4.4 赋值运算符"></a>☔️4.4 赋值运算符</h2><ul>
+<li>赋值运算的<code>返回结果时它的左侧运算对象</code>，且是一个<code>左值</code>。类型也就是左侧对象的类型。</li>
+<li>如果赋值运算的左右侧运算对象类型不同，则右侧运算对象将转换成左侧运算对象的类型。</li>
+<li>赋值运算符满足右结合律</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i, j;</span><br><span class="line">i = j = <span class="number">1</span>;<span class="comment">//正确，j 被赋值为 1，随后i 被赋值为 j 的值。</span></span><br><span class="line">等价于</span><br><span class="line">i = (j = <span class="number">1</span>)；</span><br></pre></td></tr></table></figure>
+<ul>
+<li>赋值运算优先级<code>比较低</code>，在条件语句中，赋值部分通常应该<code>加上括号</code></li>
+<li>复合赋值运算符，复合运算符只求值一次，普通运算符求值两次。</li>
+<li>位运算也可以使用赋值运算符。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">+=; -=; *=; /=; %=; &lt;&lt;=; &gt;&gt;=; &amp;=; ^=; |=;</span><br><span class="line"></span><br><span class="line">例如a = a + <span class="number">1</span>; 需要进行俩次运算</span><br><span class="line">而  a += <span class="number">1</span>; 只需要进行一次运算</span><br></pre></td></tr></table></figure>
+<h2 id="☔️4-5-递增和递减运算符"><a href="#☔️4-5-递增和递减运算符" class="headerlink" title="☔️4.5 递增和递减运算符"></a>☔️4.5 递增和递减运算符</h2><p>递增和递减运算符有俩种形式：</p>
+<ul>
+<li>前置版本：++i  ,得到递增之后的值。(先 +1，在运算)</li>
+<li>后置版本：i++，得到递增之前的值。(先运算，在 +1)</li>
+</ul>
+<p>前置版本将对象本身作为左值返回，后置版本将对象的原始值的副本返回。<br><code>非必须，不要使用后置版本</code>原因有俩点：</p>
+<ol>
+<li>前置版本直接返回改变了的运算对象，后置版本需要将原始值保存下来以便于返回，是一种浪费。</li>
+<li>后置版本对于整数和指针来说影响不大，但是对于迭代器而言消耗巨大。</li>
+</ol>
+<p><strong>在一条语句中混用解引用和递增运算符</strong></p>
+<p><code>pbeg++ 等价于 *(pbeg++)</code></p>
+<ul>
+<li><strong>pbeg++,把pbeg的值加1，然后返回pbeg的初始值的副本作为其求值结果。</strong></li>
+<li>递增运算符优先级高于解引用，所以不用加括号</li>
+<li>建议这样写，比较简约<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">auto</span> pbeg = v.begin();</span><br><span class="line"><span class="keyword">while</span>(pbeg != v.end())</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; *pbeg++ &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="☔️4-6-成员访问"><a href="#☔️4-6-成员访问" class="headerlink" title="☔️4.6 成员访问"></a>☔️4.6 成员访问</h2></li>
+<li><code>点运算符</code>和<code>箭头运算符</code>都可以访问成员。</li>
+<li><code>.</code>运算符的优先级大于<code>*</code>，所以要记得加括号</li>
+<li><code>ptr-&gt;mem</code>等价于<code>(*ptr).mem</code></li>
+</ul>
+<h2 id="☔️4-7-条件运算符"><a href="#☔️4-7-条件运算符" class="headerlink" title="☔️4.7 条件运算符"></a>☔️4.7 条件运算符</h2><ul>
+<li>条件运算符(<code>?:</code>)，允许我们把简单的的<code>if-else</code>逻辑嵌入到单个表达式当中，条件运算符的格式为<code>cond ? expr1: expr2;</code></li>
+<li>可以使用嵌套条件运算符</li>
+<li><code>条件运算符优先级比较低，一般要加括号</code><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> final = (grade &gt; <span class="number">90</span>) ? <span class="string">&quot;high pass&quot;</span>:(grade &lt; <span class="number">60</span>)? <span class="string">&quot;fail&quot;</span>:<span class="string">&quot;pass&quot;</span> </span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="☔️4-8-位运算符"><a href="#☔️4-8-位运算符" class="headerlink" title="☔️4.8 位运算符"></a>☔️4.8 位运算符</h2><p>位运算符作用于<code>整数类型</code>的对象，并把运算符对象看成是<code>二进制位</code>的集合。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">运算符</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">~</td>
+<td style="text-align:center">位求反</td>
+</tr>
+<tr>
+<td style="text-align:center">&lt;&lt;</td>
+<td style="text-align:center">左移</td>
+</tr>
+<tr>
+<td style="text-align:center">&gt;&gt;</td>
+<td style="text-align:center">右移</td>
+</tr>
+<tr>
+<td style="text-align:center">&amp;</td>
+<td style="text-align:center">位与</td>
+</tr>
+<tr>
+<td style="text-align:center">^</td>
+<td style="text-align:center">位异或</td>
+</tr>
+<tr>
+<td style="text-align:center">!</td>
+<td style="text-align:center">位或</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>如果运算对象是“小整型”，值会被自动提升为较大的整数类型。</li>
+<li>运算对象可以带符号，也可以不带符号。<code>不带符号的运算结果是固定的，带符号的运算结果依赖于机器。</code></li>
+<li><code>左移操作可能会改变符号位的值，因此在c++中建议仅用位运算来处理无符号类型</code></li>
+</ul>
+<p><strong>移位运算符</strong></p>
+<ul>
+<li>使用移位运算符，移动的位数必须严格小于结果的位数。否则产生未定义的行为。</li>
+<li><code>&gt;&gt;</code>右移运算符处理<code>无符号数</code>时，相当于在左侧插入0，右侧移出边界的值舍弃</li>
+<li><code>&lt;&lt;</code>左移运算符处理<code>无符号数</code>时，相当于在右侧插入0，左侧移出边界的值舍弃</li>
+</ul>
+<p>对于有符号位：</p>
+<ul>
+<li><code>&lt;&lt;</code>左移运算符，相当于在右侧插入值为0的二进制位</li>
+<li><code>&gt;&gt;</code>右移运算符：如果该运算对象是无符号类型，相当于在左侧插入值为0的二进制位。如果有符号类型，在左侧插入符号的副本或值为0的二进制位，具体看环境<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">移位运算符满足左结合律</span><br><span class="line"></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; a &lt;&lt; b &lt;&lt; <span class="built_in">endl</span>;  </span><br><span class="line">((<span class="built_in">cout</span> &lt;&lt; a) &lt;&lt;b ) &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="☔️4-9-sizeof运算符"><a href="#☔️4-9-sizeof运算符" class="headerlink" title="☔️4.9 sizeof运算符"></a>☔️4.9 sizeof运算符</h2></li>
+<li><code>sizeof</code>返回一条表达式或一个类型名字所占的字节数，返回值是<code>size_t</code>类型</li>
+<li>sizeof 满足右结合律</li>
+<li>sizeof并<code>不实际计算其运算对象的值</code>。</li>
+</ul>
+<p><strong>sizeof有俩种形式：</strong></p>
+<ul>
+<li>sizeof (type)，给出类型名</li>
+<li>sizeof expr，给出表达式<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Sales_data data *p;</span><br><span class="line"><span class="keyword">sizeof</span> p;          <span class="comment">//指针所占空间大小</span></span><br><span class="line"><span class="keyword">sizeof</span> *p          <span class="comment">//P所指类型的大小，例如int * p ;此时p的大小就是int 类型的大小</span></span><br></pre></td></tr></table></figure></li>
+<li>对数组执行 sizeof 运算符得到的是整个数组所占空间的大小。不会把数组转换为指针来处理。</li>
+<li>但是对指针执行 sizeof 运算符得到的是指针类型的大小，也就是 8。</li>
+<li>对 string 或 vector 对象执行 sizeof 运算只返回该类型固定部分的大小，不会计算对象中的元素占了多少空间。</li>
+<li>可以用 sizeof 获得数组中元素的个数：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> ia[<span class="number">10</span>];</span><br><span class="line"><span class="comment">// sizeof(ia)返回整个数组所占空间的大小</span></span><br><span class="line"><span class="comment">// sizeof(ia)/sizeof(*ia)返回数组的大小</span></span><br><span class="line">constexpr <span class="type">size_t</span> sz = <span class="keyword">sizeof</span>(ia)/<span class="keyword">sizeof</span>(*ia);</span><br><span class="line"><span class="type">int</span> arr[sz];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="☔️4-10-逗号运算符"><a href="#☔️4-10-逗号运算符" class="headerlink" title="☔️4.10 逗号运算符"></a>☔️4.10 逗号运算符</h2><ul>
+<li><p>按照从左向右顺序依次求值。</p>
+</li>
+<li><p>左侧求值结果丢弃，逗号运算符结果是右侧表达式的值。</p>
+</li>
+<li>在 for 循环中可以用逗号分隔两个不同的条件</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i!=n; i++,j++)</span><br></pre></td></tr></table></figure>
+<p><code>注意不要在判断条件那里使用逗号分隔不同的条件，那样只会返回逗号分隔的最后一个表达式的值。</code></p>
+<h2 id="☔️4-11-类型转换"><a href="#☔️4-11-类型转换" class="headerlink" title="☔️4.11 类型转换"></a>☔️4.11 类型转换</h2><p>在c++中，如果参加运算的俩个对象是不同类型的。则会<code>通过类型转换把，把俩个对象统一一下类型，在进行计算</code></p>
+<p><strong>隐式类型转换</strong></p>
+<ul>
+<li>比 int 类型小的整型值首先提升为较大的整数类型</li>
+<li>在条件里，把非布尔值转换成布尔值</li>
+<li>初始化中，初始值转换成变量的类型。</li>
+<li>赋值时，右侧运算对象转换成左侧类型</li>
+<li>算数运算或关系运算的运算对象有多种类型，转换成一种。</li>
+<li>函数调用时也会有转换。</li>
+</ul>
+<h3 id="❄️4-11-1-算术转换"><a href="#❄️4-11-1-算术转换" class="headerlink" title="❄️4.11.1 算术转换"></a>❄️4.11.1 算术转换</h3><p>将运算符中的运算对象，转换为<code>最宽的类型</code>。例如：当表达式中既有浮点数也有整数时。整数值将准换成相应的浮点类型</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> c = <span class="number">3</span> + <span class="string">&#x27;a&#x27;</span>;<span class="comment">//先将&#x27;a&#x27;提升成 int，然后把 int 转换成 double</span></span><br></pre></td></tr></table></figure>
+<p><strong>整数提升</strong></p>
+<p><code>整数提升负责把小整数转换成为较大的整数类型。</code><br>例如:(bool, short, char等),只要他们所有的可能的值都能存在<code>int</code> 里，他们就会提升成 <code>int</code>类型</p>
+<p><strong>无符号类型的运算对象</strong></p>
+<ul>
+<li>如果一个是无符号一个带符号。如果无符号类型不小于带符号类型（比如都是 4 字节），则带符号转换为无符号</li>
+<li>如果无符号类型小于带符号，转换结果依赖机器。尽量不使用。</li>
+</ul>
+<h3 id="❄️4-11-2-其他隐式类型转换"><a href="#❄️4-11-2-其他隐式类型转换" class="headerlink" title="❄️4.11.2 其他隐式类型转换"></a>❄️4.11.2 其他隐式类型转换</h3><p><strong>数组转换为指针</strong></p>
+<ul>
+<li>大多数情况下数组会自动转换成指向数组首元素的指针。（decltype关键字参数、取地址符(&amp;)、sizeof、typeid 都不会发生这种转换）</li>
+</ul>
+<p><strong>指针的转换</strong></p>
+<ul>
+<li><code>整数0</code>或 <code>nullptr</code> 都能转换成任意指针类型。</li>
+<li>指向非常量的指针能转换成 void<em>。指向所有对象的指针都能转换成 const void</em>。</li>
+</ul>
+<p><strong>转换成常量</strong><br>允许将指向<code>非常量类型的指针</code>转换成指向相应的<code>常量类型</code>指针。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> &amp;j = i;   <span class="comment">//非常量转换为const int 引用</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> *p = &amp;i;   <span class="comment">//非常量地址转换为const 的地址</span></span><br><span class="line"><span class="type">int</span> &amp;r = j, *q = p;  <span class="comment">//错误：不允许const转换为非常量</span></span><br></pre></td></tr></table></figure><br><strong>类类型定义的转换</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> s = <span class="string">&quot;value&quot;</span>;<span class="comment">//将 c 风格字符串字面值转换为 string类型</span></span><br><span class="line"><span class="keyword">while</span>(<span class="built_in">cin</span>&gt;&gt;s);     <span class="comment">//将 cin 转换为 bool 值</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="❄️4-11-3-显示转换"><a href="#❄️4-11-3-显示转换" class="headerlink" title="❄️4.11.3 显示转换"></a>❄️4.11.3 显示转换</h3><p><code>显示准换就是强制转换</code></p>
+<p><strong>强制转换的具体格式：</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">castname&lt;type&gt;(expression);</span><br></pre></td></tr></table></figure><br><strong>castname有四种：</strong></p>
+<ul>
+<li>static_cast</li>
+<li>dynamic_cast</li>
+<li>const_cast</li>
+<li>reinterpret_cast </li>
+</ul>
+<p><strong>static_cast</strong></p>
+<ul>
+<li><p><code>任何类型转换，只要不包含底层 const，都可以用 static_cast</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> slope = static_cast&lt;<span class="type">double</span>&gt;(j)/i; <span class="comment">//将 j 转换成 double 以便执行浮点数除法</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>当把较大的类型转换为较小的类型时，static_cast 很有用。这时它告诉读者和编译器：我们知道且不在乎精度损失。平时编译器会给警告，显式转换后就不警告了。</strong></p>
+</li>
+</ul>
+<p><strong>const_cast</strong></p>
+<ul>
+<li>const_cast 只能改变对象的底层 const。可以去掉或增加 const 性质。</li>
+<li>只有 const_cast 能改变表达式的常量属性，其他都不行。</li>
+<li>cosnt_cast 常用于有函数重载的上下文中。<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>&amp; s;</span><br><span class="line">const_cast &lt;<span class="type">const</span> <span class="built_in">string</span>&amp;&gt; (s);<span class="comment">// 将 s 转换为常量引用</span></span><br><span class="line">const_cast &lt;<span class="built_in">string</span>&amp;&gt; (s);<span class="comment">// 将 s 转换回非常量引用</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>reinterpret_cast</strong></p>
+<p><code>不要用它。</code></p>
+<p><strong>旧式的强制类型转换</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>(a);<span class="comment">// 函数形式的强制类型转换</span></span><br><span class="line">(<span class="type">int</span>)a;<span class="comment">// c 语言风格的强制类型转换</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>旧式的强制类型转换本质上采用 const_cast、static_cast 或 reinterpret_cast 的一种。</li>
+<li>旧式与新式相比没那么清晰明了，如果出现问题，追踪困难。</li>
+</ul>
+<h2 id="☔️4-12-运算符优先级（省略p147）"><a href="#☔️4-12-运算符优先级（省略p147）" class="headerlink" title="☔️4.12 运算符优先级（省略p147）"></a>☔️4.12 运算符优先级（省略p147）</h2></article><div class="post-copyright"><div class="post-copyright__title"><span class="post-copyright-info"><h>c ++ primer 表达式</h></span></div><div class="post-copyright__type"><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://www.xiaodainiao.com.cn/2022/06/23/post18/">https://www.xiaodainiao.com.cn/2022/06/23/post18/</a></span></div><div class="post-copyright-m"><div class="post-copyright-m-info"><div class="post-copyright-a"><h>作者</h><div class="post-copyright-cc-info"><h>Littlebird</h></div></div><div class="post-copyright-c"><h>发布于</h><div class="post-copyright-cc-info"><h>2022-06-23</h></div></div><div class="post-copyright-u"><h>更新于</h><div class="post-copyright-cc-info"><h>2023-10-05</h></div></div><div class="post-copyright-c"><h>许可协议</h><div class="post-copyright-cc-info"><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a rel="noopener" target="_blank" title="CC BY-NC-SA 4.0" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></div></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/c/">c++</a></div><div class="post_share"><div class="social-share" data-image="https://pic-bed-1oa.pages.dev/img/mi3.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/06/28/post19/" title="c ++ primer 语句"><img class="cover" src="https://pic-bed-1oa.pages.dev/img/mi9.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">c ++ primer 语句</div></div></a></div><div class="next-post pull-right"><a href="/2022/06/18/post17/" title="MySQL执行一条select过程"><img class="cover" src="https://pic-bed-1oa.pages.dev/img/p5.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">MySQL执行一条select过程</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/06/28/post19/" title="c ++ primer 语句"><img class="cover" src="https://pic-bed-1oa.pages.dev/img/mi9.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-28</div><div class="title">c ++ primer 语句</div></div></a></div><div><a href="/2022/04/22/post1/" title="c++变量和基本类型"><img class="cover" src="https://pic-bed-1oa.pages.dev/img/mi10.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-22</div><div class="title">c++变量和基本类型</div></div></a></div><div><a href="/2022/07/06/post20/" title="c ++ primer 函数"><img class="cover" src="https://pic-bed-1oa.pages.dev/img/mi1.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-06</div><div class="title">c ++ primer 函数</div></div></a></div><div><a href="/2022/04/24/post3/" title="c++字符串、向量和数组"><img class="cover" src="https://pic-bed-1oa.pages.dev/img/p16.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-24</div><div class="title">c++字符串、向量和数组</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/touXiang.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Littlebird</div><div class="author-info__description">你尽管努力,剩下的交给时间！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xiaodainiao"><i class="fab fa-github"></i><span>🛴前往小窝...<i class="faa-passing animated" style="padding-left:20px;display:inline-block;vertical-align:middle;"><svg class="icon" style="height:28px;width:28px;fill:currentColor;position:relative;top:5px"><use xlink:href="#icon-xiaoqiche"></use></svg></i></span></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/xiaodainiao" target="_blank" title="Github"><i class="fa-fw fab fa-github faa-tada"></i></a><a class="social-icon faa-parent animated-hover" href="/images/weixin.jpg" target="_blank" title="微信"><svg class="social_icon faa-tada" aria-hidden="true"><use xlink:href="#icon-weixin"></use></svg></a><a class="social-icon faa-parent animated-hover" href="https://blog.csdn.net/weixin_45043334?spm=1000.2115.3001.5343" target="_blank" title="Csdn"><svg class="social_icon faa-tada" aria-hidden="true"><use xlink:href="#icon-csdn"></use></svg></a><a class="social-icon faa-parent animated-hover" href="https://leetcode.cn/u/EuhbAzzJnb/" target="_blank" title="力扣"><svg class="social_icon faa-tada" aria-hidden="true"><use xlink:href="#icon-leetcode"></use></svg></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><a class="faa-parent animated-hover"><svg class="faa-tada icon" style="height:25px;width:25px;fill:currentColor;position:relative;top:5px" aria-hidden="true"><use xlink:href="#icon-gonggao"></use></svg></a><span>公告</span></div><div class="announcement_content"><center><b>--- 主域名 ---<br><a target="_blank" rel="noopener" href="https://www.xiaodainiao.com.cn" title="此线路部署于Vercel" class="anno_content"><font color="#5ea6e5">www.xiaodainiao.com.cn</font></a>&nbsp;|&nbsp;<br>--- 备用域名 ---<br><a target="_blank" rel="noopener" href="https://www.xiaodainiao.top" title="此线路部署于Netlify" class="anno_content"><font color="#5ea6e5">www.xiaodainiao.top</font></a><br>--- Github ---<br>🍧<a target="_blank" rel="noopener" href="https://github.com/xiaodainiao" title="点这里可以下载网站的安卓APP" class="anno_content"><font color="#5ea6e5">点此进入</font></a>🍧</b><br></center><b><div id="welcome-info"><b><center>🎉 欢迎信息 🎉</center><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎来自<a herf=""><font color="#5ea6e5">五湖四海</font></a>的小伙伴，晚上好，夜生活嗨起来！您现在距离站长约 <a herf=""><font color="#5ea6e5">1885 </font></a>公里,当前的IP地址为:<a herf=""><font color="#5ea6e5">127.0.0.1</font></a>, <a herf=""><font color="#5ea6e5">北~京~欢~迎~你 </font></a></b></b></div></div></div><div class="card-widget" id="newYear"><div class="item-headline"><i></i><span></span></div><div class="item-content"><div id="newYear-main"><div class="mask"></div> <p class="title"></p> <div class="newYear-time"></div> <p class="today" style="text-align: right;"></p> </div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E2%9B%84%EF%B8%8F%E7%AC%AC4%E7%AB%A0-%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">⛄️第4章 表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%98%94%EF%B8%8F4-1-%E5%9F%BA%E7%A1%80"><span class="toc-text">☔️4.1 基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9D%84%EF%B8%8F4-1-1-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">❄️4.1.1 基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9D%84%EF%B8%8F4-1-2-%E4%BC%98%E5%85%88%E7%BA%A7%E4%B8%8E%E7%BB%93%E5%90%88%E5%BE%8B"><span class="toc-text">❄️4.1.2 优先级与结合律</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9D%84%EF%B8%8F4-1-3-%E6%B1%82%E5%80%BC%E9%A1%BA%E5%BA%8F"><span class="toc-text">❄️4.1.3 求值顺序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%98%94%EF%B8%8F4-2-%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">☔️4.2 算术运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%98%94%EF%B8%8F4-3-%E9%80%BB%E8%BE%91%E5%92%8C%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">☔️4.3 逻辑和关系运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%98%94%EF%B8%8F4-4-%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">☔️4.4 赋值运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%98%94%EF%B8%8F4-5-%E9%80%92%E5%A2%9E%E5%92%8C%E9%80%92%E5%87%8F%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">☔️4.5 递增和递减运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%98%94%EF%B8%8F4-6-%E6%88%90%E5%91%98%E8%AE%BF%E9%97%AE"><span class="toc-text">☔️4.6 成员访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%98%94%EF%B8%8F4-7-%E6%9D%A1%E4%BB%B6%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">☔️4.7 条件运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%98%94%EF%B8%8F4-8-%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">☔️4.8 位运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%98%94%EF%B8%8F4-9-sizeof%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">☔️4.9 sizeof运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%98%94%EF%B8%8F4-10-%E9%80%97%E5%8F%B7%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">☔️4.10 逗号运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%98%94%EF%B8%8F4-11-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-text">☔️4.11 类型转换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9D%84%EF%B8%8F4-11-1-%E7%AE%97%E6%9C%AF%E8%BD%AC%E6%8D%A2"><span class="toc-text">❄️4.11.1 算术转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9D%84%EF%B8%8F4-11-2-%E5%85%B6%E4%BB%96%E9%9A%90%E5%BC%8F%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-text">❄️4.11.2 其他隐式类型转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9D%84%EF%B8%8F4-11-3-%E6%98%BE%E7%A4%BA%E8%BD%AC%E6%8D%A2"><span class="toc-text">❄️4.11.3 显示转换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%98%94%EF%B8%8F4-12-%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7%EF%BC%88%E7%9C%81%E7%95%A5p147%EF%BC%89"><span class="toc-text">☔️4.12 运算符优先级（省略p147）</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/07/06/post20/" title="c ++ primer 函数"><img src="https://pic-bed-1oa.pages.dev/img/mi1.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="c ++ primer 函数"/></a><div class="content"><a class="title" href="/2022/07/06/post20/" title="c ++ primer 函数">c ++ primer 函数</a><time datetime="2022-07-06T09:00:00.000Z" title="发表于 2022-07-06 17:00:00">2022-07-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/06/28/post19/" title="c ++ primer 语句"><img src="https://pic-bed-1oa.pages.dev/img/mi9.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="c ++ primer 语句"/></a><div class="content"><a class="title" href="/2022/06/28/post19/" title="c ++ primer 语句">c ++ primer 语句</a><time datetime="2022-06-28T09:00:00.000Z" title="发表于 2022-06-28 17:00:00">2022-06-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/06/23/post18/" title="c ++ primer 表达式"><img src="https://pic-bed-1oa.pages.dev/img/mi3.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="c ++ primer 表达式"/></a><div class="content"><a class="title" href="/2022/06/23/post18/" title="c ++ primer 表达式">c ++ primer 表达式</a><time datetime="2022-06-23T09:00:00.000Z" title="发表于 2022-06-23 17:00:00">2022-06-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div id="ft"><div class="ft-item-1"><div class="t-top"><div class="t-t-l"><p class="ft-t t-l-t">格言🧬</p><div class="bg-ad"><div>再看看那个光点，它就在这里，这是家园，这是我们 —— 你所爱的每一个人，你认识的每一个人，你听说过的每一个人，曾经有过的每一个人，都在它上面度过他们的一生✨</div><div class="btn-xz-box"><a class="btn-xz" target="_blank" rel="noopener" href="https://stellarium.org/">点击开启星辰之旅</a></div></div></div><div class="t-t-r"><p class="ft-t t-l-t">猜你想看💡</p><ul class="ft-links"><li><a href="/personal/about/">关于作者</a><a href="/archives/">文章归档</a></li><li><a href="/categories/">文章分类</a><a href="/tags/">文章标签</a></li><li><a href="/box/Gallery/">我的画廊</a><a href="/personal/bb/">我的唠叨</a></li><li><a href="/site/time/">建设进程</a><a href="/site/census/">网站统计</a></li></ul></div></div></div><div class="ft-item-2"><p class="ft-t">推荐友链⌛</p><div class="ft-img-group"><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.fomal.cc/" title="Fomalhaut🥝"><img src="https://lskypro.acozycotage.net/LightPicture/2022/12/60e5d4e39da7c077.webp" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://tzy1997.com/" title="唐志远の博客"><img src="https://lskypro.acozycotage.net/LightPicture/2022/12/4ab83cdce942463b.jpg" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://akilar.top/" title="Akilarの糖果屋"><img src="https://lskypro.acozycotage.net/LightPicture/2022/12/6bf1ed05796db59c.jpg" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://butterfly.js.org/" title="Butterfly"><img src="https://lskypro.acozycotage.net/LightPicture/2022/12/64cc6a7d508026e1.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://anzhiy.cn/" title="安知鱼"><img src="https://lskypro.acozycotage.net/LightPicture/2022/12/1b33fef8f5fb7e63.jpg" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.acozycotage.net/" title="Acozycotage"><img src="https://lskypro.acozycotage.net/LightPicture/2022/12/6a6fe6ebfd19c465.jpg" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://cdn.netdun.net/" title="网盾星球"><img src="https://lskypro.acozycotage.net/LightPicture/2022/12/70dee3f9d1ca10f3.webp" alt=""/></a></div><div class="img-group-item"><a href="javascript:void(0)" title="广告位招租"><img src="https://lskypro.acozycotage.net/LightPicture/2022/12/65307a5828af6790.webp" alt=""/></a></div></div></div></div><div class="copyright"><span><b>&copy;2022 - 2023</b></span><span><b>&nbsp;&nbsp;By Littlebird</b></span></div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.</div><div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:2px" title="博客框架为Hexo_v6.3.0"><div id="img" src="https://sourcebucket.s3.ladydaily.com/badge/Frame-Hexo-blue.svg" alt=""></div><img src="https://img.shields.io/badge/Frame-Hexo-blue?logo=Hexo&amp;style=flat" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" title="主题版本Butterfly_v4.3.1"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?logo=bookalope&amp;label=Theme" alt=""/></a><a class="github-badge" target="_blank" href="https://vercel.com/" style="margin-inline:5px" title="本站采用多线部署,主线路托管于Vercel"><img src="https://img.shields.io/badge/Hosted-Vercel-brightgreen?logo=Vercel&amp;label=Hosted" alt=""/></a><a class="github-badge" target="_blank" href="https://user.51.la/" style="margin-inline:5px" title="本站数据分析得益于51la技术支持"><img src="https://img.shields.io/badge/Analytics-51la-3db1eb?logo=googleanalytics&amp;label=Analytics" alt=""/></a><a class="github-badge" target="_blank" href="https://bitiful.dogecast.com/buckets" style="margin-inline:5px" title="本网站经Service Worker分流至缤纷云对象存储"><img src="https://img.shields.io/badge/Bucket-缤纷云-9c62da?logo=mediamarkt&amp;label=Bucket" alt=""/></a><a class="github-badge" target="_blank" href="https://www.netdun.net/" style="margin-inline:5px" title="本站使用网盾星球提供CDN加速与防护"><img src="https://img.shields.io/badge/CDN-tianliCDN-fff2cc?logo=wolframmathematica&amp;label=CDN" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" title="本网站源码由Github提供存储仓库"><img src=" https://img.shields.io/badge/Source-Github-d021d6?logo=Github&amp;label=Source" alt=""/></a></p></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i><span id="percent">0</span><span>%</span></button></div></div><div><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-butterfly/4.8.1/js/utils.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-butterfly/4.8.1/js/main.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/instant.page/5.1.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"></div><script defer src="/js/light.js"></script><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><script defer src="/js/cursor.js"></script><script async src="//at.alicdn.com/t/c/font_4034472_tvmzgnay94k.js"></script><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer data-pjax src="/js/cat.js"></script><script defer src="/js/runtime1.js"></script><script src="https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js"></script><script async data-pjax src="https://cdn.wpon.cn/2022-sucai/Gold-ingot.js"></script><script async data-pjax src="/js/newYear.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="30" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-butterfly/4.8.1/js/search/local-search.min.js"></script></div></div><!-- hexo injector body_end start --> <script data-pjax>if(document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+    var parent = document.getElementById('recent-posts');
+    var child = '<div class="recent-post-item" style="width:100%;height: auto"><div id="catalog_magnet"><div class="magnet_item"><a class="magnet_link" href="http://xiaodainiao.com.cn/categories/c/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🍕 BirdのC++笔记木屋 (5)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="http://xiaodainiao.com.cn/categories/数据库/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🍭 Birdの数据库木屋 (7)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="http://xiaodainiao.com.cn/categories/云原生/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🍼 Birdの云原生木屋 (1)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="http://xiaodainiao.com.cn/categories/操作系统/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🍗 Birdの操作系统木屋 (1)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="http://xiaodainiao.com.cn/categories/goland/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🍧 BirdのGo笔记木屋 (5)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item" style="visibility: hidden"></div><a class="magnet_link_more"  href="http://xiaodainiao.com.cn/categories" style="flex:1;text-align: center;margin-bottom: 10px;">查看更多...</a></div></div>';
+    console.log('已挂载magnet')
+    parent.insertAdjacentHTML("afterbegin",child)}
+     </script><style>#catalog_magnet{flex-wrap: wrap;display: flex;width:100%;justify-content:space-between;padding: 10px 10px 0 10px;align-content: flex-start;}.magnet_item{flex-basis: calc(33.333333333333336% - 5px);background: #DCDCDC;margin-bottom: 10px;border-radius: 8px;transition: all 0.2s ease-in-out;}.magnet_item:hover{background: rgba(57, 197, 187, 0.7)}.magnet_link_more{color:#555}.magnet_link{color:black}.magnet_link:hover{color:white}@media screen and (max-width: 600px) {.magnet_item {flex-basis: 100%;}}.magnet_link_context{display:flex;padding: 10px;font-size:16px;transition: all 0.2s ease-in-out;}.magnet_link_context:hover{padding: 10px 20px;}</style>
+    <style></style><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2022/05/15/post12/" alt=""><img width="48" height="48" src="https://pic-bed-1oa.pages.dev/img/p12.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2022-05-15</span><a class="blog-slider__title" href="2022/05/15/post12/" alt="">MVCC-多版本并发控制技术</a><div class="blog-slider__text">数据库专栏总结——MVCC-多版本并发控制技术</div><a class="blog-slider__button" href="2022/05/15/post12/" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2022/05/10/post11/" alt=""><img width="48" height="48" src="https://pic-bed-1oa.pages.dev/img/mi10.jpeg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2022-05-10</span><a class="blog-slider__title" href="2022/05/10/post11/" alt="">MySQL 锁</a><div class="blog-slider__text">数据库专栏总结——MySQL锁</div><a class="blog-slider__button" href="2022/05/10/post11/" alt="">详情   </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '1s');
+    arr[i].setAttribute('data-wow-delay', '0.5s');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '2');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow_init.js"></script><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>
