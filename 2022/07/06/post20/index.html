@@ -1,0 +1,541 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>c ++ primer 函数 | Littlebird🍉</title><meta name="author" content="Littlebird"><meta name="copyright" content="Littlebird"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="c ++专栏总结——函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="c ++ primer 函数">
+<meta property="og:url" content="http://xiaodainiao.com.cn/2022/07/06/post20/index.html">
+<meta property="og:site_name" content="Littlebird🍉">
+<meta property="og:description" content="c ++专栏总结——函数">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic-bed-1oa.pages.dev/img/p7.jpg">
+<meta property="article:published_time" content="2022-07-06T09:00:00.000Z">
+<meta property="article:modified_time" content="2023-10-06T02:49:22.122Z">
+<meta property="article:author" content="Littlebird">
+<meta property="article:tag" content="c++">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic-bed-1oa.pages.dev/img/p7.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://xiaodainiao.com.cn/2022/07/06/post20/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-right"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'c ++ primer 函数',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-10-06 10:49:22'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/cat.css"><link rel="stylesheet" href="/css/font.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_4034472_ta34bbnsr7.js" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/echarts@4.9.0/dist/echarts.min.js"></script><link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@1,300&display=swap" rel="stylesheet"><div id="myscoll"></div><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/animate.min.css" media="print" onload="this.media='screen'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/touXiang.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-tubiaozhizuomoban-"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-tubiaozhizuomoban-"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon--biji"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian1">                   </use></svg><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/tags/"><i class="fa-fw icon-biaoqian1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian1"></use></svg><span> 标签</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/categories/"><i class="fa-fw icon-fenleixuanzhong"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenleixuanzhong"></use></svg><span> 分类</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-tubiaozhizuomoban"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-LINKS">                   </use></svg><span> 友人账</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-liuyan">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/archives/"><i class="fa-fw icon-lishishuju"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-lishishuju"></use></svg><span> 时光鸡</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-niunai"></use></svg><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/talk/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-xiaoxi">                   </use></svg><span> 唠叨</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/about/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-gerenziliao">                   </use></svg><span> 关于我</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pic-bed-1oa.pages.dev/img/p7.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Littlebird🍉"><span class="site-name">Littlebird🍉</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw icon-tubiaozhizuomoban-"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-tubiaozhizuomoban-"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon--biji"></use></svg><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian1">                   </use></svg><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/tags/"><i class="fa-fw icon-biaoqian1"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-biaoqian1"></use></svg><span> 标签</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/categories/"><i class="fa-fw icon-fenleixuanzhong"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-fenleixuanzhong"></use></svg><span> 分类</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-tubiaozhizuomoban"></use></svg><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-LINKS">                   </use></svg><span> 友人账</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-liuyan">                   </use></svg><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/archives/"><i class="fa-fw icon-lishishuju"></i><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-lishishuju"></use></svg><span> 时光鸡</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-niunai"></use></svg><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/talk/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-xiaoxi">                   </use></svg><span> 唠叨</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/about/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-gerenziliao">                   </use></svg><span> 关于我</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">c ++ primer 函数</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-07-06T09:00:00.000Z" title="发表于 2022-07-06 17:00:00">2022-07-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-10-06T02:49:22.122Z" title="更新于 2023-10-06 10:49:22">2023-10-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/c/">c++</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">5572</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>19分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="c ++ primer 函数"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="🎯6-1-函数基础"><a href="#🎯6-1-函数基础" class="headerlink" title="🎯6.1 函数基础"></a>🎯6.1 函数基础</h2><ul>
+<li>通过调用<code>运算符 ()</code>来执行函数。</li>
+</ul>
+<p><strong>函数调用完成俩项工作：</strong></p>
+<ul>
+<li><code>用实参初始化函数对应的形参。</code></li>
+<li><code>将控制器转移给被调用函数。</code></li>
+</ul>
+<p><strong>此时主调函数被中断，被调函数开始执行。</strong></p>
+<p><strong>函数执行的第一步：隐式地定义并初始化它的形参。实参是形参的初始值，第一个实参初始化第一个形参。</strong></p>
+<p><strong>return 语句完成俩项工作:</strong></p>
+<ul>
+<li><code>返回return 语句中的值</code></li>
+<li><code>将控制权从被调函数转移回主调函数</code></li>
+</ul>
+<p><strong>形参</strong></p>
+<ul>
+<li>实参是形参的初始值。</li>
+<li>实参的类型与形参类型匹配，或者可以转换成形参类型。</li>
+<li>可以没有形参名，但是函数无法使用未命名的形参，即使形参未命名，也要传入实参。</li>
+</ul>
+<p><strong>返回类型</strong></p>
+<ul>
+<li>函数返回类型不能是<code>数组类型</code>或者<code>函数类型</code>.</li>
+<li>但是可以是<code>数组指针</code>或<code>函数指针</code><h3 id="🎨6-1-1-局部对象"><a href="#🎨6-1-1-局部对象" class="headerlink" title="🎨6.1.1 局部对象"></a>🎨6.1.1 局部对象</h3></li>
+<li><code>名字有作用域，对象有生命周期</code></li>
+<li>形参和函数体<code>内部定义</code>的变量统称为<code>局部变量</code></li>
+</ul>
+<p><strong>形参属于自动对象</strong>：</p>
+<ul>
+<li>函数开始时为形参<code>申请存储空间</code>，因为形参定义在函数体作用域之内，<code>函数终止，形参被销毁</code></li>
+<li>在所有函数外定义的对象存在于程序的整个执行过程中</li>
+</ul>
+<p><strong>局部静态变量</strong></p>
+<ul>
+<li>在程序的执行路径第一次经过对象定义语句时初始化，直到程序终止被销毁。</li>
+<li>只存在于<code>块执行期间的对象</code>。当块的执行结束后，它的值就变成未定义的了。</li>
+<li>如果想要局部变量声明周期在<code>整个程序结束</code>，可以将局部变量定义成<code>static类型</code></li>
+<li>如果局部静态变量没有显式的初始值，将执行值初始化。</li>
+</ul>
+<h3 id="🎨6-1-2-函数声明"><a href="#🎨6-1-2-函数声明" class="headerlink" title="🎨6.1.2 函数声明"></a>🎨6.1.2 函数声明</h3><ul>
+<li>函数的声明和定义唯一的区别是<code>声明无需函数体，用一个分号替代。</code></li>
+<li>函数声明主要用于<code>描述函数的接口</code>，也称函数原型。</li>
+<li><code>函数的声明无需形参的名字</code>（因为声明不包含函数体）。</li>
+<li>函数的三要素：<code>返回类型</code>、<code>函数名</code>、<code>形参类型</code>。</li>
+<li>建议在头文件中声明函数，在源文件中定义函数。<h3 id="🎨6-1-3-分离式编译"><a href="#🎨6-1-3-分离式编译" class="headerlink" title="🎨6.1.3 分离式编译"></a>🎨6.1.3 分离式编译</h3>分离式编译允许把程序分割到几个文件中，每个文件独立编译。</li>
+</ul>
+<h2 id="🎯6-2-参数传递"><a href="#🎯6-2-参数传递" class="headerlink" title="🎯6.2 参数传递"></a>🎯6.2 参数传递</h2><ul>
+<li><strong>引用传递</strong>：又称传引用调用，指形参是<code>引用类型</code>，引用形参是它对应的实参的别名。</li>
+<li><strong>值传递</strong>：又称传值调用，指实参的值是通过<code>拷贝</code>传递给形参。</li>
+<li>形参初始化的机理和变量初始化一样。</li>
+</ul>
+<h3 id="🎨6-2-1-传值参数"><a href="#🎨6-2-1-传值参数" class="headerlink" title="🎨6.2.1 传值参数"></a>🎨6.2.1 传值参数</h3><ul>
+<li>当初始化一个非引用类型的变量时，初始值被<code>拷贝</code>给变量。</li>
+<li>函数对形参做的所有操作都<code>不会影响实参</code>。</li>
+<li><strong>指针形参</strong>：C++建议使用<code>引用类型的形参代替指针</code>。</li>
+</ul>
+<h3 id="🎨6-2-2-传引用参数"><a href="#🎨6-2-2-传引用参数" class="headerlink" title="🎨6.2.2  传引用参数"></a>🎨6.2.2  传引用参数</h3><ul>
+<li>通过使用引用形参，允许函数改变一个或多个实参的值。</li>
+<li>通过引用可以避免拷贝(如果对象太长，可以使用引用来避免拷贝，拷贝太浪费内存了)</li>
+<li><code>如果无需改变引用形参的值，最好将其声明为常量引用</code>。</li>
+<li>引用形参直接关联到绑定的对象，而非对象的副本。</li>
+<li><code>使用引用形参可以用于返回额外的信息。</code><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//既返回位置也返回次数，此时可以给函数传入一个额外的引用实参，令其保存字符出现的次数</span></span><br><span class="line"><span class="built_in">string</span>::size_type <span class="title function_">find_char</span><span class="params">(<span class="type">const</span> <span class="built_in">string</span> &amp;s, <span class="type">char</span> c, <span class="built_in">string</span>::size_type &amp;occurs)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">auto</span> size = s.size();</span><br><span class="line">	occurs = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i != s.size(); i ++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (s[i] == c)</span><br><span class="line">		&#123;	</span><br><span class="line">			<span class="keyword">if</span> (ret == s.size()) ret = i;</span><br><span class="line">			++ occurs;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ret;            <span class="comment">//出现次数通过occurs隐式地返回</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="🎨6-2-3-const-形参和实参"><a href="#🎨6-2-3-const-形参和实参" class="headerlink" title="🎨6.2.3 const 形参和实参"></a>🎨6.2.3 const 形参和实参</h3></li>
+<li><code>实参初始化形参时以及进行拷贝时，都会忽略掉顶层const</code>,因此导致<code>void func (const int i)</code>;调用既可以传入<code>const int</code>也可以传入<code>int</code></li>
+</ul>
+<p><strong>加深理解</strong>：引用是没有顶层 const 的，因此顶层 const 适用于指针及其他类型，对于传值来说传递的是实参的副本，无论如何都不会改变实参，因此形参加不加顶层 const 都是一样的。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">fcn</span><span class="params">(<span class="type">const</span> <span class="type">int</span> i )</span>&#123; &#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">fcn</span><span class="params">(<span class="type">int</span> i )</span>&#123; &#125;         <span class="comment">//错误:重复定义了fcn(int)</span></span><br></pre></td></tr></table></figure><br><strong>指针或引用形参与const</strong></p>
+<ul>
+<li>使用非常量初始化一个底层const对象，但是反过来不行。</li>
+<li>普通引用必须用同类型的对象初始化。</li>
+</ul>
+<p><strong>加深理解</strong>：不能把普通引用绑定到const 对象上，不能把普通的引用绑定在字面值上。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">reset</span><span class="params">(<span class="type">int</span> &amp;r)</span> &#123; &#125;;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> i = <span class="number">10</span>; </span><br><span class="line">reset(i);    <span class="comment">//错误：不能把普通引用绑定到const 对象上</span></span><br><span class="line">reset(<span class="number">42</span>);   <span class="comment">//错误：不能把普通的引用绑定在字面值上</span></span><br></pre></td></tr></table></figure>
+<p><strong>尽量使用常量引用</strong></p>
+<ul>
+<li><code>尽量使用常量引用做形参</code>（注意常量引用的 const 是底层 const。）</li>
+<li>可以用字面值初始化常量引用</li>
+</ul>
+<p><strong>使用常量引用的优点</strong>：</p>
+<ol>
+<li><code>想要调用引用版本的reset，只能使用int 类型对象。而不能使用字面值、求值结果为int 的表达式、需要转换的对象或者const int 类型的对象。</code></li>
+<li>想要调用指针班的reset 只能使用 int *</li>
+</ol>
+<p><code>不能把 const 对象、字面值或需要类型转换的对象传递给普通的引用形参。但是可以传递给常量引用形参。</code></p>
+<p><strong>注意</strong>: 如果函数 a 把形参定义为了常量引用，函数 b 形参是普通引用，那么不能在 a 中使用 b 调用该常量引用形参。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span>  <span class="title function_">is_sentence</span><span class="params">(<span class="type">const</span> <span class="built_in">string</span> &amp;s)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//如果在s的末尾有且只有一个句号，则s是一个句子</span></span><br><span class="line">	<span class="built_in">string</span> :: size_type ctr = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">return</span> find_char(s, <span class="string">&#x27;.&#x27;</span>, ctr) == s.size() - <span class="number">1</span> &amp;&amp; ctr == <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">错误因为is_sentence是<span class="type">const</span>对象而find_char是普通对象</span><br></pre></td></tr></table></figure></p>
+<h3 id="🎨6-2-4-数组形参"><a href="#🎨6-2-4-数组形参" class="headerlink" title="🎨6.2.4 数组形参"></a>🎨6.2.4 数组形参</h3><p>数组的两个特殊性质：<code>不允许拷贝数组、使用数组时常会将其转换成指针</code></p>
+<ul>
+<li>因为数组不能进行拷贝，所以无法使用值传递的方式使用数组参数。因为数组会被转换成指针，所实际上传递的是指向数组的首元素指针。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">print</span><span class="params">(<span class="type">const</span> <span class="type">int</span>*)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">print</span><span class="params">(<span class="type">const</span> <span class="type">int</span>[])</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">print</span><span class="params">(<span class="type">const</span> <span class="type">int</span>[<span class="number">10</span>])</span>;<span class="comment">//三种声明等价，数字 10 没有什么实际影响</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> i= <span class="number">0</span>, j[<span class="number">2</span>] = &#123;<span class="number">0</span>, <span class="number">1</span>&#125;;</span><br><span class="line"><span class="built_in">printf</span>(&amp;i);               <span class="comment">//正确：&amp;i的类型是int *</span></span><br><span class="line"><span class="built_in">printf</span>(j);                <span class="comment">//正确：j转换成int * 并指向j[0]</span></span><br><span class="line">                       <span class="comment">//传入的是一个数组，那么实参会自动转换成指向数组首元素的指针</span></span><br></pre></td></tr></table></figure>
+<p><strong>使用数组做形参确保数组访问不越界的方法：</strong></p>
+<ul>
+<li>使用一个结束标记指定数组已结束，典型代表为 C 风格字符串</li>
+<li><code>传递指向数组首元素和尾后元素的指针</code></li>
+<li><code>显示传递一个表示数组大小的形参</code></li>
+</ul>
+<p><strong>数组引用形参</strong></p>
+<ul>
+<li><code>可以定义数组的引用，但是没有引用数组，因为引用不是一个对象。注意数组的大小是构成数组类型的一部分</code></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">func(<span class="type">int</span> &amp;arr[<span class="number">10</span>]);  <span class="comment">//错误：arr 是引用的数组</span></span><br><span class="line">func(<span class="type">int</span> (&amp;arr)[<span class="number">10</span>]);<span class="comment">//正确：array 是包含 10 个整数的整型数组的引用</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> *arr[<span class="number">10</span>];        <span class="comment">//指针的数组</span></span><br><span class="line"><span class="type">int</span> (*arr)[<span class="number">10</span>];      <span class="comment">//指向数组的指针</span></span><br></pre></td></tr></table></figure>
+<h3 id="🎨6-2-5-main-处理命令行选项"><a href="#🎨6-2-5-main-处理命令行选项" class="headerlink" title="🎨6.2.5 main:处理命令行选项"></a>🎨6.2.5 main:处理命令行选项</h3><ul>
+<li><code>int main(int argc, char *argv[])&#123;...&#125;</code></li>
+<li>第一个形参代表<code>数组中字符串的数量</code>；第二个形参argv是一个数组，<code>它的元素是指向C风格字符串的指针</code>。</li>
+</ul>
+<h3 id="🎨6-2-6-含有可变形参的函数"><a href="#🎨6-2-6-含有可变形参的函数" class="headerlink" title="🎨6.2.6 含有可变形参的函数"></a>🎨6.2.6 含有可变形参的函数</h3><p>无法预知应该向函数传递几个实参，处理不同数量实参的主要方法有俩种：</p>
+<ul>
+<li><code>如果所有实参类型相同，传递一个 initializer_list 类型</code></li>
+<li><code>使用省略符形参，它可以传递可变数量的实参，注意它一般仅用于与 C 函数交互的接口程序</code></li>
+</ul>
+<p><strong>initializer_list 形参特点</strong></p>
+<ul>
+<li><code>initializer_list</code> 也是一种模板类型，定义在同名的头文件中。</li>
+<li><code>initializer_list</code> 与 vector 容器大致相同，但是它的元素都是<code>常量值</code>。</li>
+<li><code>initializer_list</code>对象<code>只能使用花括号初始化</code>。</li>
+<li>C++ 里的 vector 等各类容器使用列表初始化时本质上都是通过一个采用了 initializer_list 形参的构造函数进行初始化的。</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>initializer_list&lt;T&gt; lst;</code></td>
+<td>默认初始化；<code>T</code>类型元素的空列表</td>
+</tr>
+<tr>
+<td><code>initializer_list&lt;T&gt; lst&#123;a,b,c...&#125;;</code></td>
+<td><code>lst</code>的元素数量和初始值一样多；<code>lst</code>的元素是对应初始值的副本；列表中的元素是<code>const</code>。</td>
+</tr>
+<tr>
+<td><code>lst2(lst)</code></td>
+<td>拷贝或赋值一个<code>initializer_list</code>对象不会拷贝列表中的元素；拷贝后，原始列表和副本共享元素。</td>
+</tr>
+<tr>
+<td><code>lst2 = lst</code></td>
+<td>同上</td>
+</tr>
+<tr>
+<td><code>lst.size()</code></td>
+<td>列表中的元素数量</td>
+</tr>
+<tr>
+<td><code>lst.begin()</code></td>
+<td>返回指向<code>lst</code>中首元素的指针</td>
+</tr>
+<tr>
+<td><code>lst.end()</code></td>
+<td>返回指向<code>lst</code>中微元素下一位置的指针</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">err_msg</span><span class="params">(ErrCode e, <span class="built_in">initializer_list</span>&lt;<span class="built_in">string</span>&gt; il)</span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; e.msg &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> bed = il.begin(); beg != il.end(); ++ beg)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; *beg &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">err_msg(ErrCode(<span class="number">404</span>), &#123;<span class="string">&quot;functionX&quot;</span>, <span class="string">&quot;okay&#125;);</span></span><br></pre></td></tr></table></figure>
+<p>如果向 initailizer_list 形参中传递一个值的序列，必须把序列放在花括号里。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">func</span><span class="params">(<span class="built_in">initializer_list</span>&lt;<span class="type">int</span>&gt; il)</span></span><br><span class="line"><span class="title function_">func</span><span class="params">(&#123;<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">2</span>&#125;)</span>;</span><br></pre></td></tr></table></figure></p>
+<p><strong>省略符形参</strong></p>
+<ul>
+<li>省略符形参仅用于 C 和 C++ 通用的类型，大多数类类型的对象传递给省略符形参都无法正确拷贝。</li>
+<li>省略符形参只能出现于形参列表的最后一个位置<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">func</span><span class="params">(parm_list,...)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">func</span><span class="params">(...)</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="🎯6-3-返回类型和-return-语句"><a href="#🎯6-3-返回类型和-return-语句" class="headerlink" title="🎯6.3 返回类型和 return 语句"></a>🎯6.3 返回类型和 return 语句</h2><ul>
+<li><code>与参数传递一样，不能返回数组，只能返回指向数组的指针或数组的引用</code></li>
+</ul>
+<p><strong>return 俩个作用：</strong></p>
+<ul>
+<li>返回 return 语句中的值</li>
+<li>终止当前正在执行的函数，将控制权返回到调用该函数的地方</li>
+</ul>
+<h3 id="🎨6-3-1-无返回值函数"><a href="#🎨6-3-1-无返回值函数" class="headerlink" title="🎨6.3.1 无返回值函数"></a>🎨6.3.1 无返回值函数</h3><ul>
+<li>没有返回值的 return语句只能用在返回类型是 void的函数中</li>
+<li><code>返回 void的函数不要求非得有 return语句。因为它会在最后一句后面隐式地执行 return。</code></li>
+</ul>
+<h3 id="🎨6-3-2-有返回值函数"><a href="#🎨6-3-2-有返回值函数" class="headerlink" title="🎨6.3.2 有返回值函数"></a>🎨6.3.2 有返回值函数</h3><ul>
+<li>return语句的返回值的类型<code>必须和函数的返回类型相同</code>，或者能够<code>隐式地转换成函数的返回类型</code>。</li>
+<li><code>在含有 return 语句的循环和条件后面也应该有一条 return 语句</code>。</li>
+<li>返回一个值和初始化一个变量或形参的方式一样，返回的值用于初始化调用点的变量。</li>
+<li><code>不要返回局部对象的引用和指针</code></li>
+</ul>
+<p><strong>因为局部对象在函数调用完成后，他所占用的存储空间被释放，此时函数终止意味着局部变量的引用将指向不再有效的内存区域</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="built_in">string</span>&amp; <span class="title function_">func</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">string</span> s;</span><br><span class="line">	s = <span class="string">&quot;xiaodainiao&quot;</span></span><br><span class="line">    <span class="keyword">return</span> s;          <span class="comment">//错误，字符串字面值转换成一个局部临时变量，不能返回局部对象的引用</span></span><br><span class="line">&#125;      </span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">str_cmp</span><span class="params">(<span class="type">const</span> <span class="built_in">string</span> &amp;str1, <span class="type">const</span> <span class="built_in">string</span> &amp;str2)</span></span><br><span class="line">&#123;</span><br><span class="line">   <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; n; i ++)</span><br><span class="line">   &#123;</span><br><span class="line">	   <span class="keyword">if</span> (str[<span class="number">1</span>] != str[<span class="number">2</span>])</span><br><span class="line">	   <span class="keyword">return</span>;               <span class="comment">//错误</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="literal">true</span>;              <span class="comment">//这个往往会被忽略，在含有 return 语句的循环和条件后面也应该有一条 return 语句</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>引用返回左值</strong></p>
+<ul>
+<li><code>返回引用的函数返回的是左值，其他返回类型得到右值</code>。</li>
+<li><code>可以为返回类型是非常量引用的函数的结果赋值</code>。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> &amp;<span class="title function_">get_val</span><span class="params">(<span class="built_in">string</span> &amp;str, <span class="built_in">string</span>::size_type ix)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> str[ix];</span><br><span class="line">&#125;</span><br><span class="line">get_val(s,<span class="number">0</span>) = <span class="string">&#x27;A&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>列表初始化返回值</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title function_">process</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">string</span> s;</span><br><span class="line">    <span class="keyword">if</span>(expected.empty())</span><br><span class="line">        <span class="keyword">return</span> &#123;&#125;;<span class="comment">// 返回一个空 vector 对象</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(expected == actual)</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">&quot;funcitonX&quot;</span>,<span class="string">&quot;okay&quot;</span>&#125;;<span class="comment">//返回一个列表初始化的 vector 对象    </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><strong>main 的返回值</strong></p>
+<ul>
+<li>如果结尾没有return，编译器将<code>隐式地插入一条返回0的return语句</code>。</li>
+<li>返回0代表执行成功,返回其它值代表失败。</li>
+<li><code>cstdlib</code>头文件定义了两个预处理变量来表示成功与失败<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> EXIT_FAILURE;<span class="comment">//失败</span></span><br><span class="line"><span class="keyword">return</span> EXIT_SUCCESS;<span class="comment">//成功</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="🎨6-3-3-返回数组指针"><a href="#🎨6-3-3-返回数组指针" class="headerlink" title="🎨6.3.3 返回数组指针"></a>🎨6.3.3 返回数组指针</h3><ul>
+<li>函数不能返回数组，但是可以返回数组的指针或引用</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> *p[<span class="number">10</span>];   <span class="comment">// 错误，指针的数组，p是一个含有10个指针的数组</span></span><br><span class="line"><span class="type">int</span> (*p)[<span class="number">10</span>]; <span class="comment">// 正确，数组的指针，p是一个指针，指向含有10个整数的数组</span></span><br><span class="line"><span class="type">int</span> &amp;p[<span class="number">10</span>];   <span class="comment">//错误，引用数组，引用不是对象，没有引用的数组，有数组的引用</span></span><br><span class="line"><span class="type">int</span> (&amp;p) [<span class="number">10</span>]; <span class="comment">// 正确，数组引用</span></span><br></pre></td></tr></table></figure>
+<p><code>int（*function（int i ）[10]）;</code></p>
+<ul>
+<li><code>func(int i )</code>表示调用func函数需要传递一个int 实参</li>
+<li><code>(*func(int i ))</code> 对函数调用的结果执行解引用</li>
+<li><code>(*function(int i )[10])</code>表示解引用结果是一个大小为10的数组</li>
+<li><code>int（*function（int i ）[10]）</code>表示数组中的元素是int 类型</li>
+</ul>
+<p><strong>有三种方法简化返回数组指针或引用。</strong></p>
+<ul>
+<li><code>使用类型别名</code></li>
+<li><code>使用尾置返回类型</code></li>
+<li><code>使用 decltype</code></li>
+</ul>
+<p><strong>使用类型别名</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> arrT[<span class="number">10</span>]; <span class="comment">// arrT 表示含有 10 个整数的数组</span></span><br><span class="line">using arrT = <span class="type">int</span>[<span class="number">10</span>]; <span class="comment">//等价声明</span></span><br><span class="line">arrT* <span class="title function_">func</span><span class="params">(<span class="type">int</span> i)</span>; <span class="comment">// 函数 func 返回一个指向含有 10 个整数的数组的指针</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>使用尾置返回类型</strong></p>
+<ul>
+<li>任何函数的定义都可以使用尾置返回，适用于返回类型<code>复杂的函数</code><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> <span class="title function_">func</span><span class="params">(<span class="type">int</span> i)</span> -&gt; <span class="title function_">int</span><span class="params">(*)</span>[10];</span><br><span class="line"><span class="comment">//func接受一个int 类型的实参，返回一个指针，该指针指向含有10个整数的数组</span></span><br></pre></td></tr></table></figure>
+<strong>使用 decltype</strong></li>
+<li>如果已知函数返回的指针将指向哪个数组，可以使用 decltype</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> odd[]=&#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>&#125;;</span><br><span class="line">decltype(odd)* func(<span class="type">int</span> i);<span class="comment">//返回一个数组指针</span></span><br></pre></td></tr></table></figure>
+<p><strong>注意 decltype 的结果是一个数组，要想表示func返回指针还必须在函数声明时加一个<code>*</code>号。</strong></p>
+<h2 id="🎯6-4-函数的重载"><a href="#🎯6-4-函数的重载" class="headerlink" title="🎯6.4 函数的重载"></a>🎯6.4 函数的重载</h2><ul>
+<li>main 函数不能重载</li>
+<li>函数<code>名字相同</code>，但是<code>形参数量</code>和<code>形参类型</code>不同，此时发生重载。</li>
+<li>函数<code>返回值类型不同</code>，不是函数重载</li>
+</ul>
+<p><strong>重载和const形参</strong></p>
+<ul>
+<li>函数重载<code>无法区分顶层 const 形参和非顶层 const 形参</code>，但是可以区分底层 <code>const 形参与普通形参</code><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">func</span><span class="params">(<span class="type">int</span> i)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">func</span><span class="params">(<span class="type">const</span> <span class="type">int</span> i)</span>;<span class="comment">//顶层const，无法区分，相当于重复声明</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">func</span><span class="params">(<span class="type">int</span>* p)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">func</span><span class="params">(<span class="type">int</span>* <span class="type">const</span> p)</span>;<span class="comment">//顶层const，无法区分，相当于重复声明</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">func</span><span class="params">(<span class="type">int</span>* p)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">func</span><span class="params">(<span class="type">const</span> <span class="type">int</span>* p)</span>;<span class="comment">//底层const，可以区分，一个普通指针，一个常量指针</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">func</span><span class="params">(<span class="type">int</span>&amp; i)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">func</span><span class="params">(<span class="type">const</span> <span class="type">int</span>&amp; i)</span>;<span class="comment">//底层const，可以区分，一个普通引用，一个常量引用</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>const_cast</strong></p>
+<ul>
+<li>强制类型转化，可以将常量引用转换为非常量引用，也可以将非常量引用转换为常量引用</li>
+<li>当要重载常量引用与非常量引用的版本时，<code>在非常量引用的版本中可以通过 const_cast 将参数和返回值从常量引用转换为非常量引用，以实现对常量引用版本的调用。</code></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>&amp; s;</span><br><span class="line">const_cast &lt;<span class="type">const</span> <span class="built_in">string</span>&amp;&gt; (s);<span class="comment">// 将 s 转换为常量引用</span></span><br><span class="line">const_cast &lt;<span class="built_in">string</span>&amp;&gt; (s);<span class="comment">// 将 s 转换回非常量引用</span></span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="built_in">string</span> &amp;<span class="title function_">str</span><span class="params">(<span class="type">const</span> <span class="built_in">string</span> &amp;s1, <span class="type">const</span> <span class="built_in">string</span> &amp;s2)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> s1.size() &gt; s2.size();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> <span class="built_in">string</span> &amp;<span class="title function_">str</span><span class="params">( <span class="built_in">string</span> &amp;s1,  <span class="built_in">string</span> &amp;s2)</span></span><br><span class="line"> &#123;</span><br><span class="line"> 	<span class="keyword">auto</span> &amp;r = str(const_cast&lt;<span class="type">const</span> <span class="built_in">string</span>&amp;&gt; (s1), const_cast&lt;<span class="type">const</span> <span class="built_in">string</span>&amp;&gt; (s2))</span><br><span class="line"> 	<span class="keyword">return</span> const_cast&lt;<span class="built_in">string</span>&amp;&gt; (r);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>将实参转换为const的引用，然后调用str的const版本。</li>
+<li>当返回时，因为返回类型是非常量引用，所以需要再次转换一下。</li>
+</ol>
+<h3 id="6-4-1-重载与作用域"><a href="#6-4-1-重载与作用域" class="headerlink" title="6.4.1 重载与作用域"></a>6.4.1 重载与作用域</h3><ul>
+<li>不同的重载版本要定义在同一作用域中（一般都是全局）</li>
+</ul>
+<h2 id="🎯6-5-特殊用途语言特性"><a href="#🎯6-5-特殊用途语言特性" class="headerlink" title="🎯6.5 特殊用途语言特性"></a>🎯6.5 特殊用途语言特性</h2><h3 id="🎨6-5-1-默认实参"><a href="#🎨6-5-1-默认实参" class="headerlink" title="🎨6.5.1 默认实参"></a>🎨6.5.1 默认实参</h3><ul>
+<li>一旦某个形参被赋予了默认值，那么它之后的形参都必须要有默认值。(反过来就是设置默认值的形参必须都放在没有默认值的形参后面。)<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> <span class="title function_">screen</span><span class="params">(sz ht = <span class="number">24</span>, sz wid = <span class="number">80</span>, <span class="type">char</span> backgrnd = <span class="string">&#x27; &#x27;</span>)</span>;</span><br></pre></td></tr></table></figure></li>
+<li><code>如果想使用默认值实参时，只要在调用该函数的时候省略该实参就可以（默认实参负责填补函数调用时缺少的尾部实参。）</code></li>
+<li><code>局部变量不能作为默认实参，全局变量和字面值都可以。</code></li>
+<li>如果函数有默认实参，则调用函数时传入的实参数量可能少于它实际使用的实参数量</li>
+<li><code>通常应该在函数声明中指定默认实参，并将该声明放在合适的头文件中</code>。<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> <span class="title function_">screen</span><span class="params">(sz, sz, <span class="type">char</span> = <span class="string">&#x27; &#x27;</span>)</span>;</span><br><span class="line"><span class="built_in">string</span> <span class="title function_">screen</span><span class="params">(sz, sz ,<span class="type">char</span> = <span class="string">&#x27;*&#x27;</span>)</span>;   <span class="comment">//错误重复声明，不能修改已经存在的默认值</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="🎨6-5-2-内联函数和constexpr函数"><a href="#🎨6-5-2-内联函数和constexpr函数" class="headerlink" title="🎨6.5.2 内联函数和constexpr函数"></a>🎨6.5.2 内联函数和constexpr函数</h3><ul>
+<li><code>内联函数可避免函数调用时的开销</code></li>
+<li>内联函数适合于规模小、流程直接、频繁调用的函数。</li>
+</ul>
+<p><strong>使用函数的缺点</strong></p>
+<ul>
+<li><code>调用函数更慢</code>,调用前要先保存寄存器（保护现场），并在返回时恢复：可能需要拷贝实参；程序转向一个新的位置继续执行。</li>
+</ul>
+<p><strong>在函数前用 inline 声明一下即表明是内联函数</strong></p>
+<h4 id="🎨constexpr函数"><a href="#🎨constexpr函数" class="headerlink" title="🎨constexpr函数"></a>🎨constexpr函数</h4><ul>
+<li><code>只能用于常量表达式的函数。</code>但是 constexpr 函数不一定返回常量表达式。</li>
+<li>constexpr int new_sz() {return 42;}</li>
+<li><code>constexpr 函数的返回类型及所有的形参类型都必须是字面值类型，函数体中必须有且只有一条 return 语句</code></li>
+<li><p>constexpr函数应该在头文件中定义。</p>
+</li>
+<li><p>应该把内联函数和constexpr函数的定义放到头文件里。</p>
+<h2 id="🎯6-6-函数匹配"><a href="#🎯6-6-函数匹配" class="headerlink" title="🎯6.6 函数匹配"></a>🎯6.6 函数匹配</h2></li>
+<li>重载函数匹配的三个步骤：<code>1.候选函数；2.可行函数；3.寻找最佳匹配。</code></li>
+<li><strong>候选函数</strong>：选定本次调用对应的重载函数集，集合中的函数称为候选函数（candidate function）。</li>
+<li><strong>可行函数</strong>：考察本次调用提供的实参，选出可以被这组实参调用的函数，新选出的函数称为可行函数</li>
+<li><strong>寻找最佳匹配</strong>：基本思想：实参类型和形参类型越接近，它们匹配地越好。</li>
+</ul>
+<p><strong>调用重载函数应尽量避免强制类型转换。</strong></p>
+<h3 id="🎨6-6-1-实参类型转换"><a href="#🎨6-6-1-实参类型转换" class="headerlink" title="🎨6.6.1 实参类型转换"></a>🎨6.6.1 实参类型转换</h3><p><strong>实参类型到形参类型的转换分为几个等级，具体排序如下：</strong></p>
+<ol>
+<li><strong>精确匹配</strong><br> 实参类型和形参类型相同<br> 从数组类型或函数类型转化为对应的指针类型<br> 向实参中添加顶层const或删除顶层const</li>
+<li><strong>通过const转换实现的匹配。</strong></li>
+<li><strong>通过类型提升实现的匹配</strong></li>
+<li><strong>通过算术类型转换或指针转换实现的匹配</strong></li>
+<li><strong>通过类类型转换实现的匹配</strong></li>
+</ol>
+<p>注意：所有算数类型转换的级别都一样。</p>
+<h2 id="🎯6-7-函数指针"><a href="#🎯6-7-函数指针" class="headerlink" title="🎯6.7 函数指针"></a>🎯6.7 函数指针</h2><ul>
+<li>函数指针指向的是函数而非对象</li>
+<li><code>一种函数指针只能指向一种特定的函数类型：</code><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">Compare</span><span class="params">(<span class="type">const</span> <span class="built_in">string</span>&amp;, <span class="type">const</span> <span class="built_in">string</span>&amp;)</span>;  <span class="comment">// 此函数的类型是 bool(const string&amp;, const string&amp;);</span></span><br><span class="line"><span class="type">bool</span> (*pf)(<span class="type">const</span> <span class="built_in">string</span>&amp;, <span class="type">const</span> <span class="built_in">string</span>&amp;);    <span class="comment">// 声明了一个指向 bool(const string&amp;, const string&amp;) 类型函数的指针，注意括号不能少；</span></span><br><span class="line">pf = Compare;                                <span class="comment">// 给指针赋值，指向 Compare 函数</span></span><br><span class="line">pf = &amp;Compare;                               <span class="comment">// 这两种赋值语句完全等价</span></span><br><span class="line"><span class="type">bool</span> b1 = pf(<span class="string">&quot;hello&quot;</span>,<span class="string">&quot;goodbye&quot;</span>);             <span class="comment">// 可以直接使用指针替代函数名调用函数。</span></span><br><span class="line"><span class="type">bool</span> b2 = (*pf)(<span class="string">&quot;hello&quot;</span>,<span class="string">&quot;goodbye&quot;</span>);          <span class="comment">// 与上面的等价</span></span><br><span class="line"><span class="type">bool</span> b3 = Compare(<span class="string">&quot;hello&quot;</span>,<span class="string">&quot;goodbye&quot;</span>)         <span class="comment">//与上面等价</span></span><br></pre></td></tr></table></figure></li>
+<li><code>当把函数名作为一个值使用时，函数自动地转换成指针</code>。</li>
+<li>不同函数类型的指针间不能相互转换。函数指针也可以指向 <code>nullptr 或 0</code>。</li>
+<li>对于重载函数，指针类型必须与重载函数中的某一个精确比配。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>::size_type <span class="title function_">str</span><span class="params">(cosnt <span class="built_in">string</span>&amp;,<span class="type">const</span> strint&amp;)</span></span><br><span class="line"><span class="type">bool</span> <span class="title function_">str1</span><span class="params">(<span class="type">const</span> <span class="type">char</span>*, <span class="type">const</span> <span class="type">char</span>*)</span></span><br><span class="line">pf = <span class="number">0</span>;</span><br><span class="line">pf = str;      <span class="comment">//错误，返回类型不匹配</span></span><br><span class="line">pf = str1;     <span class="comment">//错误，形参类型不匹配</span></span><br><span class="line">pf = Compare;  <span class="comment">//正确，函数和指针类型精确匹配</span></span><br></pre></td></tr></table></figure>
+<p><strong>函数指针形参</strong></p>
+<ul>
+<li><code>函数不能作形参，但是函数指针可以做形参，之后在调用时可以直接传入函数名作实参</code></li>
+<li><code>函数名做形参也会自动的转换为指针。</code></li>
+</ul>
+<p><strong>类似于数组不能做形参，但是数组指针可以做形参</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">GetBigger</span><span class="params">(<span class="type">const</span> <span class="built_in">string</span>&amp; s1, <span class="type">const</span> <span class="built_in">string</span>&amp; s2, <span class="type">bool</span>(*comp)(<span class="type">const</span> <span class="built_in">string</span>&amp;, <span class="type">const</span> <span class="built_in">string</span>&amp;))</span>;  <span class="comment">// 函数指针做形参</span></span><br><span class="line">GetBigger(s1, s2, Compare);   <span class="comment">// 实参直接传入函数名 Compare </span></span><br></pre></td></tr></table></figure>
+<p><strong>返回函数指针</strong></p>
+<ul>
+<li><code>不能返回一个函数，但是可以返回函数指针（注意这时函数名不会自动转换为函数指针）</code>。</li>
+</ul>
+<p><strong>类似于返回数组，数组不能返回，只能返回指向数组的指针</strong></p>
+<ul>
+<li>声明一个返回函数指针的函数有几种方法，其中直接声明最麻烦，使用尾置类型和 decltype 更简单一些，但是最好使用类型别名。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;直接声明&#x27;</span></span><br><span class="line"><span class="type">bool</span> (*f1(<span class="type">int</span>))(<span class="type">double</span>);       <span class="comment">// f1 是一个函数，函数的形参列表为 int，返回类型为函数指针。这个函数指针的类型为 bool (*)(double)，即形参为 double，返回类型为 bool。</span></span><br><span class="line"><span class="string">&#x27;使用尾置类型&#x27;</span></span><br><span class="line"><span class="keyword">auto</span> <span class="title function_">f1</span><span class="params">(<span class="type">int</span>)</span> -&gt; <span class="title function_">bool</span><span class="params">(*)</span><span class="params">(<span class="type">double</span>)</span>;</span><br><span class="line"><span class="string">&#x27;使用 decltype&#x27;</span></span><br><span class="line"><span class="type">bool</span> <span class="title function_">func</span><span class="params">(<span class="type">double</span>)</span>;</span><br><span class="line">decltype(func)* f1(<span class="type">double</span>);     </span><br><span class="line"><span class="string">&#x27;使用类型别名&#x27;</span></span><br><span class="line">using PF = <span class="type">bool</span>(*)(<span class="type">double</span>);</span><br><span class="line">PF <span class="title function_">f1</span><span class="params">(<span class="type">int</span>)</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>和数组的类似，可以进行对比</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> arrT[<span class="number">10</span>]; <span class="comment">// arrT 表示含有 10 个整数的数组</span></span><br><span class="line">using arrT = <span class="type">int</span>[<span class="number">10</span>]; <span class="comment">//等价声明</span></span><br><span class="line">arrT* <span class="title function_">func</span><span class="params">(<span class="type">int</span> i)</span>; <span class="comment">// 函数 func 返回一个指向含有 10 个整数的数组的指针</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> <span class="title function_">func</span><span class="params">(<span class="type">int</span> i)</span> -&gt; <span class="title function_">int</span><span class="params">(*)</span>[10];</span><br><span class="line"><span class="comment">//func接受一个int 类型的实参，返回一个指针，该指针指向含有10个整数的数组</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> odd[]=&#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>&#125;;</span><br><span class="line">decltype(odd)* func(<span class="type">int</span> i);<span class="comment">//返回一个数组指针</span></span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__title"><span class="post-copyright-info"><h>c ++ primer 函数</h></span></div><div class="post-copyright__type"><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://www.xiaodainiao.com.cn/2022/07/06/post20/">https://www.xiaodainiao.com.cn/2022/07/06/post20/</a></span></div><div class="post-copyright-m"><div class="post-copyright-m-info"><div class="post-copyright-a"><h>作者</h><div class="post-copyright-cc-info"><h>Littlebird</h></div></div><div class="post-copyright-c"><h>发布于</h><div class="post-copyright-cc-info"><h>2022-07-06</h></div></div><div class="post-copyright-u"><h>更新于</h><div class="post-copyright-cc-info"><h>2023-10-06</h></div></div><div class="post-copyright-c"><h>许可协议</h><div class="post-copyright-cc-info"><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a rel="noopener" target="_blank" title="CC BY-NC-SA 4.0" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></div></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/c/">c++</a></div><div class="post_share"><div class="social-share" data-image="https://pic-bed-1oa.pages.dev/img/p7.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/06/28/post19/" title="c ++ primer 语句"><img class="cover" src="https://pic-bed-1oa.pages.dev/img/mi5.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">c ++ primer 语句</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/06/23/post18/" title="c ++ primer 表达式"><img class="cover" src="https://pic-bed-1oa.pages.dev/img/p8.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-23</div><div class="title">c ++ primer 表达式</div></div></a></div><div><a href="/2022/06/28/post19/" title="c ++ primer 语句"><img class="cover" src="https://pic-bed-1oa.pages.dev/img/mi5.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-28</div><div class="title">c ++ primer 语句</div></div></a></div><div><a href="/2022/04/22/post1/" title="c++变量和基本类型"><img class="cover" src="https://pic-bed-1oa.pages.dev/img/p26.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-22</div><div class="title">c++变量和基本类型</div></div></a></div><div><a href="/2022/04/24/post3/" title="c++字符串、向量和数组"><img class="cover" src="https://pic-bed-1oa.pages.dev/img/p17.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-24</div><div class="title">c++字符串、向量和数组</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/touXiang.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Littlebird</div><div class="author-info__description">你尽管努力,剩下的交给时间！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xiaodainiao"><i class="fab fa-github"></i><span>🛴前往小窝...<i class="faa-passing animated" style="padding-left:20px;display:inline-block;vertical-align:middle;"><svg class="icon" style="height:28px;width:28px;fill:currentColor;position:relative;top:5px"><use xlink:href="#icon-xiaoqiche"></use></svg></i></span></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/xiaodainiao" target="_blank" title="Github"><i class="fa-fw fab fa-github faa-tada"></i></a><a class="social-icon faa-parent animated-hover" href="/images/weixin.jpg" target="_blank" title="微信"><svg class="social_icon faa-tada" aria-hidden="true"><use xlink:href="#icon-weixin"></use></svg></a><a class="social-icon faa-parent animated-hover" href="https://blog.csdn.net/weixin_45043334?spm=1000.2115.3001.5343" target="_blank" title="Csdn"><svg class="social_icon faa-tada" aria-hidden="true"><use xlink:href="#icon-csdn"></use></svg></a><a class="social-icon faa-parent animated-hover" href="https://leetcode.cn/u/EuhbAzzJnb/" target="_blank" title="力扣"><svg class="social_icon faa-tada" aria-hidden="true"><use xlink:href="#icon-leetcode"></use></svg></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><a class="faa-parent animated-hover"><svg class="faa-tada icon" style="height:25px;width:25px;fill:currentColor;position:relative;top:5px" aria-hidden="true"><use xlink:href="#icon-gonggao"></use></svg></a><span>公告</span></div><div class="announcement_content"><center><b>--- 主域名 ---<br><a target="_blank" rel="noopener" href="https://www.xiaodainiao.com.cn" title="此线路部署于Vercel" class="anno_content"><font color="#5ea6e5">www.xiaodainiao.com.cn</font></a>&nbsp;|&nbsp;<br>--- 备用域名 ---<br><a target="_blank" rel="noopener" href="https://www.xiaodainiao.top" title="此线路部署于Netlify" class="anno_content"><font color="#5ea6e5">www.xiaodainiao.top</font></a><br>--- Github ---<br>🍧<a target="_blank" rel="noopener" href="https://github.com/xiaodainiao" title="点这里可以下载网站的安卓APP" class="anno_content"><font color="#5ea6e5">点此进入</font></a>🍧</b><br></center><b><div id="welcome-info"><b><center>🎉 欢迎信息 🎉</center><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎来自<a herf=""><font color="#5ea6e5">五湖四海</font></a>的小伙伴，晚上好，夜生活嗨起来！您现在距离站长约 <a herf=""><font color="#5ea6e5">1885 </font></a>公里,当前的IP地址为:<a herf=""><font color="#5ea6e5">127.0.0.1</font></a>, <a herf=""><font color="#5ea6e5">北~京~欢~迎~你 </font></a></b></b></div></div></div><div class="card-widget" id="newYear"><div class="item-headline"><i></i><span></span></div><div class="item-content"><div id="newYear-main"><div class="mask"></div> <p class="title"></p> <div class="newYear-time"></div> <p class="today" style="text-align: right;"></p> </div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%AF6-1-%E5%87%BD%E6%95%B0%E5%9F%BA%E7%A1%80"><span class="toc-text">🎯6.1 函数基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%A86-1-1-%E5%B1%80%E9%83%A8%E5%AF%B9%E8%B1%A1"><span class="toc-text">🎨6.1.1 局部对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%A86-1-2-%E5%87%BD%E6%95%B0%E5%A3%B0%E6%98%8E"><span class="toc-text">🎨6.1.2 函数声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%A86-1-3-%E5%88%86%E7%A6%BB%E5%BC%8F%E7%BC%96%E8%AF%91"><span class="toc-text">🎨6.1.3 分离式编译</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%AF6-2-%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92"><span class="toc-text">🎯6.2 参数传递</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%A86-2-1-%E4%BC%A0%E5%80%BC%E5%8F%82%E6%95%B0"><span class="toc-text">🎨6.2.1 传值参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%A86-2-2-%E4%BC%A0%E5%BC%95%E7%94%A8%E5%8F%82%E6%95%B0"><span class="toc-text">🎨6.2.2  传引用参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%A86-2-3-const-%E5%BD%A2%E5%8F%82%E5%92%8C%E5%AE%9E%E5%8F%82"><span class="toc-text">🎨6.2.3 const 形参和实参</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%A86-2-4-%E6%95%B0%E7%BB%84%E5%BD%A2%E5%8F%82"><span class="toc-text">🎨6.2.4 数组形参</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%A86-2-5-main-%E5%A4%84%E7%90%86%E5%91%BD%E4%BB%A4%E8%A1%8C%E9%80%89%E9%A1%B9"><span class="toc-text">🎨6.2.5 main:处理命令行选项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%A86-2-6-%E5%90%AB%E6%9C%89%E5%8F%AF%E5%8F%98%E5%BD%A2%E5%8F%82%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-text">🎨6.2.6 含有可变形参的函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%AF6-3-%E8%BF%94%E5%9B%9E%E7%B1%BB%E5%9E%8B%E5%92%8C-return-%E8%AF%AD%E5%8F%A5"><span class="toc-text">🎯6.3 返回类型和 return 语句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%A86-3-1-%E6%97%A0%E8%BF%94%E5%9B%9E%E5%80%BC%E5%87%BD%E6%95%B0"><span class="toc-text">🎨6.3.1 无返回值函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%A86-3-2-%E6%9C%89%E8%BF%94%E5%9B%9E%E5%80%BC%E5%87%BD%E6%95%B0"><span class="toc-text">🎨6.3.2 有返回值函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%A86-3-3-%E8%BF%94%E5%9B%9E%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88"><span class="toc-text">🎨6.3.3 返回数组指针</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%AF6-4-%E5%87%BD%E6%95%B0%E7%9A%84%E9%87%8D%E8%BD%BD"><span class="toc-text">🎯6.4 函数的重载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4-1-%E9%87%8D%E8%BD%BD%E4%B8%8E%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-text">6.4.1 重载与作用域</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%AF6-5-%E7%89%B9%E6%AE%8A%E7%94%A8%E9%80%94%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A7"><span class="toc-text">🎯6.5 特殊用途语言特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%A86-5-1-%E9%BB%98%E8%AE%A4%E5%AE%9E%E5%8F%82"><span class="toc-text">🎨6.5.1 默认实参</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%A86-5-2-%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0%E5%92%8Cconstexpr%E5%87%BD%E6%95%B0"><span class="toc-text">🎨6.5.2 内联函数和constexpr函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%8E%A8constexpr%E5%87%BD%E6%95%B0"><span class="toc-text">🎨constexpr函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%AF6-6-%E5%87%BD%E6%95%B0%E5%8C%B9%E9%85%8D"><span class="toc-text">🎯6.6 函数匹配</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%A86-6-1-%E5%AE%9E%E5%8F%82%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-text">🎨6.6.1 实参类型转换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%AF6-7-%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88"><span class="toc-text">🎯6.7 函数指针</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div id="ft"><div class="ft-item-1"><div class="t-top"><div class="t-t-l"><p class="ft-t t-l-t">格言🧬</p><div class="bg-ad"><div>再看看那个光点，它就在这里，这是家园，这是我们 —— 你所爱的每一个人，你认识的每一个人，你听说过的每一个人，曾经有过的每一个人，都在它上面度过他们的一生✨</div><div class="btn-xz-box"><a class="btn-xz" target="_blank" rel="noopener" href="https://stellarium.org/">点击开启星辰之旅</a></div></div></div><div class="t-t-r"><p class="ft-t t-l-t">猜你想看💡</p><ul class="ft-links"><li><a href="/personal/about/">关于作者</a><a href="/archives/">文章归档</a></li><li><a href="/categories/">文章分类</a><a href="/tags/">文章标签</a></li><li><a href="/box/Gallery/">我的画廊</a><a href="/personal/bb/">我的唠叨</a></li><li><a href="/site/time/">建设进程</a><a href="/site/census/">网站统计</a></li></ul></div></div></div><div class="ft-item-2"><p class="ft-t">推荐友链⌛</p><div class="ft-img-group"><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.fomal.cc/" title="Fomalhaut🥝"><img src="https://lskypro.acozycotage.net/LightPicture/2022/12/60e5d4e39da7c077.webp" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://tzy1997.com/" title="唐志远の博客"><img src="https://lskypro.acozycotage.net/LightPicture/2022/12/4ab83cdce942463b.jpg" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://akilar.top/" title="Akilarの糖果屋"><img src="https://lskypro.acozycotage.net/LightPicture/2022/12/6bf1ed05796db59c.jpg" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://butterfly.js.org/" title="Butterfly"><img src="https://lskypro.acozycotage.net/LightPicture/2022/12/64cc6a7d508026e1.png" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://anzhiy.cn/" title="安知鱼"><img src="https://lskypro.acozycotage.net/LightPicture/2022/12/1b33fef8f5fb7e63.jpg" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.acozycotage.net/" title="Acozycotage"><img src="https://lskypro.acozycotage.net/LightPicture/2022/12/6a6fe6ebfd19c465.jpg" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://cdn.netdun.net/" title="网盾星球"><img src="https://lskypro.acozycotage.net/LightPicture/2022/12/70dee3f9d1ca10f3.webp" alt=""/></a></div><div class="img-group-item"><a href="javascript:void(0)" title="广告位招租"><img src="https://lskypro.acozycotage.net/LightPicture/2022/12/65307a5828af6790.webp" alt=""/></a></div></div></div></div><div class="copyright"><span><b>&copy;2022 - 2023</b></span><span><b>&nbsp;&nbsp;By Littlebird</b></span></div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.</div><div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:2px" title="博客框架为Hexo_v6.3.0"><div id="img" src="https://sourcebucket.s3.ladydaily.com/badge/Frame-Hexo-blue.svg" alt=""></div><img src="https://img.shields.io/badge/Frame-Hexo-blue?logo=Hexo&amp;style=flat" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" title="主题版本Butterfly_v4.3.1"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?logo=bookalope&amp;label=Theme" alt=""/></a><a class="github-badge" target="_blank" href="https://vercel.com/" style="margin-inline:5px" title="本站采用多线部署,主线路托管于Vercel"><img src="https://img.shields.io/badge/Hosted-Vercel-brightgreen?logo=Vercel&amp;label=Hosted" alt=""/></a><a class="github-badge" target="_blank" href="https://user.51.la/" style="margin-inline:5px" title="本站数据分析得益于51la技术支持"><img src="https://img.shields.io/badge/Analytics-51la-3db1eb?logo=googleanalytics&amp;label=Analytics" alt=""/></a><a class="github-badge" target="_blank" href="https://bitiful.dogecast.com/buckets" style="margin-inline:5px" title="本网站经Service Worker分流至缤纷云对象存储"><img src="https://img.shields.io/badge/Bucket-缤纷云-9c62da?logo=mediamarkt&amp;label=Bucket" alt=""/></a><a class="github-badge" target="_blank" href="https://www.netdun.net/" style="margin-inline:5px" title="本站使用网盾星球提供CDN加速与防护"><img src="https://img.shields.io/badge/CDN-tianliCDN-fff2cc?logo=wolframmathematica&amp;label=CDN" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" title="本网站源码由Github提供存储仓库"><img src=" https://img.shields.io/badge/Source-Github-d021d6?logo=Github&amp;label=Source" alt=""/></a></p></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i><span id="percent">0</span><span>%</span></button></div></div><div><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-butterfly/4.8.1/js/utils.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-butterfly/4.8.1/js/main.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/instant.page/5.1.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"></div><script defer src="/js/light.js"></script><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><script defer src="/js/cursor.js"></script><script async src="//at.alicdn.com/t/c/font_4034472_tvmzgnay94k.js"></script><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer data-pjax src="/js/cat.js"></script><script defer src="/js/runtime1.js"></script><script src="https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js"></script><script async data-pjax src="https://cdn.wpon.cn/2022-sucai/Gold-ingot.js"></script><script async data-pjax src="/js/newYear.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="30" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-butterfly/4.8.1/js/search/local-search.min.js"></script></div></div><!-- hexo injector body_end start --> <script data-pjax>if(document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+    var parent = document.getElementById('recent-posts');
+    var child = '<div class="recent-post-item" style="width:100%;height: auto"><div id="catalog_magnet"><div class="magnet_item"><a class="magnet_link" href="http://xiaodainiao.com.cn/categories/c/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🍕 BirdのC++笔记木屋 (5)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="http://xiaodainiao.com.cn/categories/数据库/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🍭 Birdの数据库木屋 (7)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="http://xiaodainiao.com.cn/categories/云原生/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🍼 Birdの云原生木屋 (1)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="http://xiaodainiao.com.cn/categories/操作系统/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🍗 Birdの操作系统木屋 (1)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="http://xiaodainiao.com.cn/categories/goland/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🍧 BirdのGo笔记木屋 (5)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item" style="visibility: hidden"></div><a class="magnet_link_more"  href="http://xiaodainiao.com.cn/categories" style="flex:1;text-align: center;margin-bottom: 10px;">查看更多...</a></div></div>';
+    console.log('已挂载magnet')
+    parent.insertAdjacentHTML("afterbegin",child)}
+     </script><style>#catalog_magnet{flex-wrap: wrap;display: flex;width:100%;justify-content:space-between;padding: 10px 10px 0 10px;align-content: flex-start;}.magnet_item{flex-basis: calc(33.333333333333336% - 5px);background: #DCDCDC;margin-bottom: 10px;border-radius: 8px;transition: all 0.2s ease-in-out;}.magnet_item:hover{background: rgba(57, 197, 187, 0.7)}.magnet_link_more{color:#555}.magnet_link{color:black}.magnet_link:hover{color:white}@media screen and (max-width: 600px) {.magnet_item {flex-basis: 100%;}}.magnet_link_context{display:flex;padding: 10px;font-size:16px;transition: all 0.2s ease-in-out;}.magnet_link_context:hover{padding: 10px 20px;}</style>
+    <style></style><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2022/05/15/post12/" alt=""><img width="48" height="48" src="https://pic-bed-1oa.pages.dev/img/mi3.jpeg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2022-05-15</span><a class="blog-slider__title" href="2022/05/15/post12/" alt="">MVCC-多版本并发控制技术</a><div class="blog-slider__text">数据库专栏总结——MVCC-多版本并发控制技术</div><a class="blog-slider__button" href="2022/05/15/post12/" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2022/05/10/post11/" alt=""><img width="48" height="48" src="https://pic-bed-1oa.pages.dev/img/p23.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2022-05-10</span><a class="blog-slider__title" href="2022/05/10/post11/" alt="">MySQL 锁</a><div class="blog-slider__text">数据库专栏总结——MySQL锁</div><a class="blog-slider__button" href="2022/05/10/post11/" alt="">详情   </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '1s');
+    arr[i].setAttribute('data-wow-delay', '0.5s');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '2');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow_init.js"></script><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>
